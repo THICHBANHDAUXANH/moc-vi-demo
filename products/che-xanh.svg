@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900">
+  <rect width="800" height="900" fill="#e7e9d8"/>
+  <circle cx="660" cy="145" r="180" fill="#d4dcc2"/>
+  <ellipse cx="400" cy="785" rx="245" ry="35" fill="#c6cfb8"/>
+  <path d="M210 205h380l-25 520H235z" fill="#f6f1df" stroke="#b7b7a3" stroke-width="4"/>
+  <path d="M210 205h380v52H210z" fill="#d2d5ba"/>
+  <circle cx="400" cy="455" r="135" fill="#214f3b"/>
+  <path d="M400 390c55-70 90-65 80-10-11 52-65 74-80 75-14-44-48-80-80-70-13 43 26 78 80 70" fill="#9bb879"/>
+  <text x="400" y="545" text-anchor="middle" fill="#f6f1df" font-family="sans-serif" font-size="37" font-weight="bold">CHÈ XANH</text>
+  <text x="400" y="610" text-anchor="middle" fill="#315744" font-family="sans-serif" font-size="24" letter-spacing="5">NGUYÊN LÁ</text>
+</svg>
