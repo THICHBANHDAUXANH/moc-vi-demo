@@ -6,3 +6,7 @@
 
 [hidden]{display:none!important}
 
+
+.brand-logo{display:block;width:auto;height:72px;max-width:160px;object-fit:contain}footer .brand-logo{height:90px;max-width:180px}@media(max-width:650px){.brand-logo{height:56px;max-width:120px}footer .brand-logo{height:80px;max-width:160px}}
+
+footer .brand{background:#f9f7f0;padding:7px 14px;border-radius:3px}.story-word{font-size:clamp(55px,7vw,115px)}
