@@ -1,7 +1,7 @@
 const products = [
   { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet-photo-demo.png', photo: true, prices: { '100 g': 99000, '200 g': 189000, '1 kg': 790000 } },
   { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong-photo-demo.png', photo: true, prices: { '100 g': 89000, '200 g': 169000, '1 kg': 690000 } },
-  { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen-photo-demo.png', photo: true, prices: { '100 g': 59000, '200 g': 109000, '1 kg': 449000 } },
+  { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen-photo-demo.png', photo: true, prices: { '100 g': 59000, '200 g': 109000, '1 kg': 349000 } },
   { id: 'cacao-daklak', name: 'Cacao Đắk Lắk', category: 'cacao', type: 'Cacao', packaging: '', image: './products/cacao-photo-demo.png', photo: true, prices: { '200 g': 129000, '500 g': 269000, '1 kg': 500000 } },
   { id: 'ca-phe', name: 'Cà phê xay LA’CAPHE Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png', photo: true, prices: { '200 g': 99000, '500 g': 199000, '1 kg': 349000 } },
 ];
