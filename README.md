@@ -2,6 +2,8 @@
 
 Bản HTML/CSS/JavaScript tĩnh của giao diện Mộc Miên để xem trên GitHub Pages. Trang chủ dẫn tới ba danh mục riêng: `che.html`, `cacao.html` và `caphe.html`. Mỗi sản phẩm mở `product.html?id=...` để chọn quy cách.
 
+Ảnh lớn trên trang chủ tự chuyển theo thứ tự chè → cà phê → cacao sau mỗi 5 giây. Có nút chuyển và chấm chọn ảnh; chế độ giảm chuyển động sẽ tắt tự chuyển.
+
 - Chè: Trà Trung Du đặc biệt, Trà Trung Du truyền thống, Chè Thái Nguyên; 100 g, 200 g, 1 kg.
 - Cacao: Cacao Đắk Lắk; 200 g, 500 g, 1 kg.
 - Cà phê xay LA’CAPHE Gia Lai: dự kiến 200 g, 500 g, 1 kg; giá bán đang chờ chốt. Tên được đổi theo bao bì trong ảnh người dùng gửi.

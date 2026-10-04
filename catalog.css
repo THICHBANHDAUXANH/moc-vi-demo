@@ -1,4 +1,22 @@
 .nav a[aria-current="page"]{color:#a9753f;border-bottom:1px solid currentColor;padding-bottom:5px}
+.hero-art{min-height:600px;background:#d9dfc5;display:block}
+.hero-art::before{display:none}
+.hero-slides,.hero-slide{position:absolute;inset:0}
+.hero-slide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .65s ease,visibility .65s ease}
+.hero-slide.is-active{opacity:1;visibility:visible;pointer-events:auto}
+.hero-art .hero-slide img{display:block;width:100%;height:100%;object-fit:cover;transform:none;filter:none}
+.hero-slide-caption{position:absolute;left:28px;bottom:80px;z-index:2;display:flex;flex-direction:column;gap:4px;padding:14px 18px;background:#fffdf8e8;color:#274838;box-shadow:0 8px 28px #1e392720;pointer-events:none}
+.hero-slide-caption span{font-size:10px;letter-spacing:.08em}
+.hero-slide-caption strong{font-family:'Playfair Display',serif;font-size:25px;font-weight:500}
+.hero-slide-controls{position:absolute;left:28px;right:28px;bottom:22px;z-index:2;display:flex;align-items:center;gap:15px}
+.hero-arrow{width:34px;height:34px;border:1px solid #fffdf8;background:#fffdf8d9;color:#274838;border-radius:50%;font-size:26px;line-height:1;display:grid;place-items:center}
+.hero-arrow:hover,.hero-arrow:focus-visible{background:#fffdf8}
+.hero-dots{display:flex;align-items:center;gap:8px}
+.hero-dot{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:#fffdf899;box-shadow:0 0 0 1px #29463255}
+.hero-dot.is-active{width:24px;border-radius:8px;background:#fffdf8}
+.hero-dot:focus-visible,.hero-arrow:focus-visible,.hero-slide:focus-visible{outline:3px solid #b68150;outline-offset:3px}
+@media(max-width:650px){.hero-art{min-height:380px}.hero-slide-caption{left:16px;bottom:72px;padding:10px 13px}.hero-slide-caption strong{font-size:21px}.hero-slide-controls{left:16px;right:16px;bottom:18px}}
+@media(prefers-reduced-motion:reduce){.hero-slide{transition:none}}
 .collection-landing{padding-top:90px}
 .category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 .category-tile{display:block;min-width:0;background:#ecede1;transition:transform .25s ease}

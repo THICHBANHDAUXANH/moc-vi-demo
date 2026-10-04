@@ -43,7 +43,7 @@ function cartMarkup() {
 }
 
 function home() {
-  return `<section class="hero" id="home"><div class="hero-copy"><span class="eyebrow">— TỪ ĐẤT VIỆT, ĐẾN GÓC BÌNH YÊN</span><h1>Chút mộc mạc<br><em>trong từng vị.</em></h1><p>Chè thơm, cacao đậm và cà phê cho những phút giây chậm lại.</p><a href="#collections" class="primary-link">Khám phá danh mục <span aria-hidden="true">→</span></a><div class="hero-foot"><span>01 / 03</span><div></div><span>CHÈ · CACAO · CÀ PHÊ</span></div></div><div class="hero-art"><div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><span class="hero-art-label">NATURALLY<br>VIETNAMESE</span><img src="./products/tra-trung-du-dac-biet.svg" alt="Minh họa hộp trà Trung Du"><div class="floating-note">✦ Thức quà từ thiên nhiên</div></div></section>
+  return `<section class="hero" id="home"><div class="hero-copy"><span class="eyebrow">— TỪ ĐẤT VIỆT, ĐẾN GÓC BÌNH YÊN</span><h1>Chút mộc mạc<br><em>trong từng vị.</em></h1><p>Chè thơm, cacao đậm và cà phê cho những phút giây chậm lại.</p><a href="#collections" class="primary-link">Khám phá danh mục <span aria-hidden="true">→</span></a><div class="hero-foot"><span>01 / 03</span><div></div><span>CHÈ · CÀ PHÊ · CACAO</span></div></div><div class="hero-art" aria-label="Ảnh danh mục chè, cà phê và cacao"><div class="hero-slides"><a class="hero-slide is-active" href="./che.html" aria-label="Khám phá chè"><img src="./products/che-photo-demo.png" alt="Ảnh demo chè Thái Nguyên"></a><a class="hero-slide" href="./caphe.html" aria-label="Khám phá cà phê"><img src="./products/caphe-photo-demo.png" alt="Ảnh demo cà phê LA’CAPHE Gia Lai"></a><a class="hero-slide" href="./cacao.html" aria-label="Khám phá cacao"><img src="./products/cacao-photo-demo.png" alt="Ảnh demo cacao Đắk Lắk"></a></div><div class="hero-slide-caption"><span id="hero-slide-count">01 / 03</span><strong id="hero-slide-name">Chè Việt</strong><span>Ảnh demo từ ảnh tham khảo</span></div><div class="hero-slide-controls" aria-label="Điều khiển ảnh danh mục"><button type="button" class="hero-arrow" id="hero-prev" aria-label="Ảnh trước">‹</button><div class="hero-dots"><button type="button" class="hero-dot is-active" data-slide="0" aria-label="Xem ảnh chè" aria-current="true"></button><button type="button" class="hero-dot" data-slide="1" aria-label="Xem ảnh cà phê"></button><button type="button" class="hero-dot" data-slide="2" aria-label="Xem ảnh cacao"></button></div><button type="button" class="hero-arrow" id="hero-next" aria-label="Ảnh tiếp theo">›</button></div></div></section>
     <section class="collection collection-landing" id="collections"><div class="section-heading"><div><span class="eyebrow">BA DÒNG SẢN PHẨM</span><h2>Chọn <em>hương vị của bạn</em></h2></div><p>Khám phá từng danh mục và chọn quy cách phù hợp trên trang sản phẩm.</p></div><div class="category-grid"><a class="category-tile tea-tile" href="./che.html"><div class="category-art"><img src="./products/che-photo-demo.png" alt="Ảnh chỉnh dựng chè Thái Nguyên"></div><div class="category-copy"><span>01 / CHÈ VIỆT</span><h3>Chè</h3><p>Trà Trung Du và chè Thái Nguyên</p><b aria-hidden="true">↗</b></div></a><a class="category-tile cacao-tile" href="./cacao.html"><div class="category-art"><img src="./products/cacao-photo-demo.png" alt="Minh họa cacao Đắk Lắk"></div><div class="category-copy"><span>02 / CACAO VIỆT</span><h3>Cacao</h3><p>Cacao Đắk Lắk</p><b aria-hidden="true">↗</b></div></a><a class="category-tile coffee-tile" href="./caphe.html"><div class="category-art"><img src="./products/caphe-photo-demo.png" alt="Ảnh chỉnh dựng cà phê xay LA’CAPHE Gia Lai"></div><div class="category-copy"><span>03 / CÀ PHÊ</span><h3>Cà phê</h3><p>Cà phê xay LA’CAPHE Gia Lai</p><b aria-hidden="true">↗</b></div></a></div><p class="sample-note">Ảnh sản phẩm là bản chỉnh dựng từ ảnh tham khảo. Giá bán ở các quy cách chưa ghi rõ đang được cập nhật.</p></section>
     <section class="story" id="story"><div class="story-art"><span class="story-sun"></span><span class="story-hill hill-one"></span><span class="story-hill hill-two"></span><span class="story-word">mộc miên</span></div><div class="story-copy"><span class="eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</span><h2>Từ vùng đất lành,<br>đến <em>tách trà của bạn.</em></h2><p>Chúng mình tin một thức uống ngon bắt đầu từ nguyên liệu tốt và sự trân trọng dành cho người làm ra nó. Mộc Miên là lời mời dành một khoảng lặng nhỏ trong ngày để thưởng thức chè, cacao và cà phê Việt.</p><a href="./che.html" class="text-link">Khám phá chè Việt <span aria-hidden="true">→</span></a></div></section>`;
 }
@@ -73,6 +73,45 @@ const content = page === 'home' ? home() : categories[page] ? category(page) : d
 document.querySelector('#app').innerHTML = `${header()}<main>${content}</main>${footer()}${cartMarkup()}`;
 if (page === 'product' && currentProduct?.photo) {
   document.querySelector('.detail-visual').insertAdjacentHTML('beforeend', '<span class="photo-disclosure">Ảnh demo đã chỉnh dựng từ ảnh tham khảo · Kiểm tra nhãn thật trước khi bán</span>');
+}
+if (page === 'home') {
+  const hero = document.querySelector('.hero-art');
+  const slides = [...hero.querySelectorAll('.hero-slide')];
+  const dots = [...hero.querySelectorAll('.hero-dot')];
+  const slideNames = ['Chè Việt', 'Cà phê Gia Lai', 'Cacao Đắk Lắk'];
+  const motionReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let activeSlide = 0;
+  let slideTimer;
+  const showSlide = index => {
+    activeSlide = (index + slides.length) % slides.length;
+    slides.forEach((slide, position) => {
+      const active = position === activeSlide;
+      slide.classList.toggle('is-active', active);
+      slide.setAttribute('aria-hidden', String(!active));
+      slide.tabIndex = active ? 0 : -1;
+      dots[position].classList.toggle('is-active', active);
+      if (active) dots[position].setAttribute('aria-current', 'true');
+      else dots[position].removeAttribute('aria-current');
+    });
+    document.querySelector('#hero-slide-count').textContent = `${String(activeSlide + 1).padStart(2, '0')} / 03`;
+    document.querySelector('#hero-slide-name').textContent = slideNames[activeSlide];
+    document.querySelector('.hero-foot span:first-child').textContent = `${String(activeSlide + 1).padStart(2, '0')} / 03`;
+  };
+  const stopSlides = () => clearInterval(slideTimer);
+  const startSlides = () => {
+    stopSlides();
+    if (!motionReduced && !document.hidden) slideTimer = setInterval(() => showSlide(activeSlide + 1), 5000);
+  };
+  document.querySelector('#hero-prev').addEventListener('click', () => { showSlide(activeSlide - 1); startSlides(); });
+  document.querySelector('#hero-next').addEventListener('click', () => { showSlide(activeSlide + 1); startSlides(); });
+  dots.forEach((dot, index) => dot.addEventListener('click', () => { showSlide(index); startSlides(); }));
+  hero.addEventListener('mouseenter', stopSlides);
+  hero.addEventListener('mouseleave', startSlides);
+  hero.addEventListener('focusin', stopSlides);
+  hero.addEventListener('focusout', event => { if (!hero.contains(event.relatedTarget)) startSlides(); });
+  document.addEventListener('visibilitychange', startSlides);
+  showSlide(0);
+  startSlides();
 }
 
 const menu = document.querySelector('#main-nav');
