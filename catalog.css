@@ -7,6 +7,10 @@
 .coffee-tile{background:#e7dfd2}
 .category-art{height:390px;display:grid;place-items:center;overflow:hidden}
 .category-art img{width:min(70%,360px);height:95%;object-fit:contain;transition:transform .3s ease}
+.category-art img[src$="-photo-demo.png"]{width:100%;height:100%;object-fit:cover}
+.story-art{background:#48613d url('./products/coffee-cherries-story-demo.png') center/cover no-repeat}
+.story-art .story-sun,.story-art .story-hill{display:none}
+.story-art .story-word{text-shadow:0 2px 20px #1f3827aa}
 .category-tile:hover img{transform:scale(1.04)}
 .category-copy{position:relative;background:#f9f7f0;padding:25px 28px 30px;border:1px solid #e7e6dc;border-top:0}
 .category-copy>span,.catalog-meta,.catalog-tools,.catalog-index{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a907f}
@@ -28,6 +32,7 @@
 .catalog-grid:has(> :only-child){grid-template-columns:minmax(0,440px)}
 .catalog-image{height:clamp(300px,35vw,480px);display:grid;place-items:center;overflow:hidden}
 .catalog-image img{width:80%;height:90%;object-fit:contain;transition:transform .3s ease}
+.catalog-image img[src$="-photo-demo.png"]{width:100%;height:100%;object-fit:cover}
 .catalog-card:hover img{transform:scale(1.04)}
 .catalog-meta{display:flex;justify-content:space-between;gap:8px;margin-top:17px;font-size:10px}
 .catalog-card h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:500;letter-spacing:-.025em;margin:12px 0 6px}
@@ -37,6 +42,9 @@
 .detail-layout{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);background:#fffdf8;min-height:690px}
 .detail-visual{background:#e9ecdf;display:grid;place-items:center;min-height:650px;overflow:hidden}
 .detail-visual img{height:min(82%,700px);max-height:640px;width:75%;object-fit:contain}
+.detail-visual img[src$="-photo-demo.png"]{width:100%;height:100%;max-height:none;object-fit:cover}
+.detail-visual:has(.photo-disclosure){position:relative}
+.photo-disclosure{position:absolute;left:20px;right:20px;bottom:20px;padding:10px 14px;background:#fffdf8e8;color:#34503d;font-size:11px;line-height:1.4;text-align:center}
 .detail-info{padding:clamp(45px,6vw,95px) max(6vw,36px) 70px;max-width:660px;width:100%;margin:auto}
 .detail-info h1{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(44px,4.3vw,66px);letter-spacing:-.045em;line-height:1.1;margin:18px 0 16px}
 .detail-subtitle{font-size:14px;color:#6f7b6d;margin:0 0 35px}

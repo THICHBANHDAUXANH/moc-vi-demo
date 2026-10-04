@@ -1,9 +1,9 @@
 const products = [
   { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet.svg' },
   { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong.svg' },
-  { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen.svg' },
-  { id: 'cacao-daklak', name: 'Cacao Đắk Lắk', category: 'cacao', type: 'Cacao', packaging: 'Đang cập nhật', image: './products/cacao-daklak.svg' },
-  { id: 'ca-phe', name: 'Cà phê Robusta Đắk Lắk', category: 'caphe', type: 'Robusta', packaging: 'Đã xay', image: './products/ca-phe.svg' },
+  { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-photo-demo.png', photo: true },
+  { id: 'cacao-daklak', name: 'Cacao Đắk Lắk', category: 'cacao', type: 'Cacao', packaging: 'Đang cập nhật', image: './products/cacao-photo-demo.png', photo: true },
+  { id: 'ca-phe', name: 'Cà phê xay LA’CAPHE Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png', photo: true },
 ];
 const productById = Object.fromEntries(products.map(product => [product.id, product]));
 const page = document.body.dataset.page;
@@ -13,7 +13,7 @@ const productUrl = product => `./product.html?id=${encodeURIComponent(product.id
 const categories = {
   che: { name: 'Chè', url: './che.html', index: '01', headingClass: 'tea-heading', description: 'Những dòng trà và chè Việt trong danh mục hiện tại. Chọn sản phẩm để xem quy cách 100 g, 200 g và 1 kg.' },
   cacao: { name: 'Cacao', url: './cacao.html', index: '02', headingClass: 'cacao-heading', description: 'Cacao Đắk Lắk với các lựa chọn 200 g, 500 g và 1 kg. Giá bán đang được cập nhật.' },
-  caphe: { name: 'Cà phê', url: './caphe.html', index: '03', headingClass: 'coffee-heading', description: 'Robusta Đắk Lắk đã xay, có quy cách 200 g, 500 g và 1 kg. Giá bán đang được cập nhật.' },
+  caphe: { name: 'Cà phê', url: './caphe.html', index: '03', headingClass: 'coffee-heading', description: 'Cà phê xay LA’CAPHE Gia Lai, dự kiến có quy cách 200 g, 500 g và 1 kg. Giá bán đang được cập nhật.' },
 };
 const categoryUrl = category => categories[category].url;
 const categoryName = category => categories[category].name;
@@ -44,7 +44,7 @@ function cartMarkup() {
 
 function home() {
   return `<section class="hero" id="home"><div class="hero-copy"><span class="eyebrow">— TỪ ĐẤT VIỆT, ĐẾN GÓC BÌNH YÊN</span><h1>Chút mộc mạc<br><em>trong từng vị.</em></h1><p>Chè thơm, cacao đậm và cà phê cho những phút giây chậm lại.</p><a href="#collections" class="primary-link">Khám phá danh mục <span aria-hidden="true">→</span></a><div class="hero-foot"><span>01 / 03</span><div></div><span>CHÈ · CACAO · CÀ PHÊ</span></div></div><div class="hero-art"><div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><span class="hero-art-label">NATURALLY<br>VIETNAMESE</span><img src="./products/tra-trung-du-dac-biet.svg" alt="Minh họa hộp trà Trung Du"><div class="floating-note">✦ Thức quà từ thiên nhiên</div></div></section>
-    <section class="collection collection-landing" id="collections"><div class="section-heading"><div><span class="eyebrow">BA DÒNG SẢN PHẨM</span><h2>Chọn <em>hương vị của bạn</em></h2></div><p>Khám phá từng danh mục và chọn quy cách phù hợp trên trang sản phẩm.</p></div><div class="category-grid"><a class="category-tile tea-tile" href="./che.html"><div class="category-art"><img src="./products/tra-trung-du-dac-biet.svg" alt="Minh họa trà Trung Du"></div><div class="category-copy"><span>01 / CHÈ VIỆT</span><h3>Chè</h3><p>Trà Trung Du và chè Thái Nguyên</p><b aria-hidden="true">↗</b></div></a><a class="category-tile cacao-tile" href="./cacao.html"><div class="category-art"><img src="./products/cacao-daklak.svg" alt="Minh họa cacao Đắk Lắk"></div><div class="category-copy"><span>02 / CACAO VIỆT</span><h3>Cacao</h3><p>Cacao Đắk Lắk</p><b aria-hidden="true">↗</b></div></a><a class="category-tile coffee-tile" href="./caphe.html"><div class="category-art"><img src="./products/ca-phe.svg" alt="Minh họa cà phê Robusta Đắk Lắk đã xay"></div><div class="category-copy"><span>03 / CÀ PHÊ</span><h3>Cà phê</h3><p>Robusta Đắk Lắk đã xay</p><b aria-hidden="true">↗</b></div></a></div><p class="sample-note">Đây là bản xem trước giao diện. Giá bán ở các quy cách chưa ghi rõ đang được cập nhật.</p></section>
+    <section class="collection collection-landing" id="collections"><div class="section-heading"><div><span class="eyebrow">BA DÒNG SẢN PHẨM</span><h2>Chọn <em>hương vị của bạn</em></h2></div><p>Khám phá từng danh mục và chọn quy cách phù hợp trên trang sản phẩm.</p></div><div class="category-grid"><a class="category-tile tea-tile" href="./che.html"><div class="category-art"><img src="./products/che-photo-demo.png" alt="Ảnh chỉnh dựng chè Thái Nguyên"></div><div class="category-copy"><span>01 / CHÈ VIỆT</span><h3>Chè</h3><p>Trà Trung Du và chè Thái Nguyên</p><b aria-hidden="true">↗</b></div></a><a class="category-tile cacao-tile" href="./cacao.html"><div class="category-art"><img src="./products/cacao-photo-demo.png" alt="Minh họa cacao Đắk Lắk"></div><div class="category-copy"><span>02 / CACAO VIỆT</span><h3>Cacao</h3><p>Cacao Đắk Lắk</p><b aria-hidden="true">↗</b></div></a><a class="category-tile coffee-tile" href="./caphe.html"><div class="category-art"><img src="./products/caphe-photo-demo.png" alt="Ảnh chỉnh dựng cà phê xay LA’CAPHE Gia Lai"></div><div class="category-copy"><span>03 / CÀ PHÊ</span><h3>Cà phê</h3><p>Cà phê xay LA’CAPHE Gia Lai</p><b aria-hidden="true">↗</b></div></a></div><p class="sample-note">Ảnh sản phẩm là bản chỉnh dựng từ ảnh tham khảo. Giá bán ở các quy cách chưa ghi rõ đang được cập nhật.</p></section>
     <section class="story" id="story"><div class="story-art"><span class="story-sun"></span><span class="story-hill hill-one"></span><span class="story-hill hill-two"></span><span class="story-word">mộc miên</span></div><div class="story-copy"><span class="eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</span><h2>Từ vùng đất lành,<br>đến <em>tách trà của bạn.</em></h2><p>Chúng mình tin một thức uống ngon bắt đầu từ nguyên liệu tốt và sự trân trọng dành cho người làm ra nó. Mộc Miên là lời mời dành một khoảng lặng nhỏ trong ngày để thưởng thức chè, cacao và cà phê Việt.</p><a href="./che.html" class="text-link">Khám phá chè Việt <span aria-hidden="true">→</span></a></div></section>`;
 }
 
@@ -57,7 +57,7 @@ function productCard(product, index) {
 function category(category) {
   const info = categories[category];
   const items = products.filter(product => product.category === category);
-  return `<section class="catalog-hero ${info.headingClass}"><div><span class="eyebrow">MỘC MIÊN / DANH MỤC</span><h1>${info.name}</h1><p>${info.description}</p></div><span class="catalog-index">${info.index} / 03</span></section><section class="catalog-section"><div class="catalog-tools"><span>${String(items.length).padStart(2, '0')} sản phẩm</span><nav aria-label="Chuyển danh mục">${Object.entries(categories).map(([key, item]) => `<a href="${item.url}" ${key === category ? 'aria-current="page"' : ''}>${item.name}</a>`).join('')}</nav></div><div class="catalog-grid">${items.map(productCard).join('')}</div><p class="sample-note">Hình minh họa và thông tin trên trang dùng để xem trước giao diện. Giá bán chưa có ở một số quy cách.</p></section>`;
+  return `<section class="catalog-hero ${info.headingClass}"><div><span class="eyebrow">MỘC MIÊN / DANH MỤC</span><h1>${info.name}</h1><p>${info.description}</p></div><span class="catalog-index">${info.index} / 03</span></section><section class="catalog-section"><div class="catalog-tools"><span>${String(items.length).padStart(2, '0')} sản phẩm</span><nav aria-label="Chuyển danh mục">${Object.entries(categories).map(([key, item]) => `<a href="${item.url}" ${key === category ? 'aria-current="page"' : ''}>${item.name}</a>`).join('')}</nav></div><div class="catalog-grid">${items.map(productCard).join('')}</div><p class="sample-note">Ảnh sản phẩm đã xử lý từ ảnh tham khảo để xem trước giao diện; vui lòng kiểm tra nhãn thực tế trước khi bán. Giá bán chưa có ở một số quy cách.</p></section>`;
 }
 
 function detail(product) {
@@ -71,6 +71,9 @@ function detail(product) {
 
 const content = page === 'home' ? home() : categories[page] ? category(page) : detail(currentProduct);
 document.querySelector('#app').innerHTML = `${header()}<main>${content}</main>${footer()}${cartMarkup()}`;
+if (page === 'product' && currentProduct?.photo) {
+  document.querySelector('.detail-visual').insertAdjacentHTML('beforeend', '<span class="photo-disclosure">Ảnh demo đã chỉnh dựng từ ảnh tham khảo · Kiểm tra nhãn thật trước khi bán</span>');
+}
 
 const menu = document.querySelector('#main-nav');
 const menuToggle = document.querySelector('#menu-toggle');
