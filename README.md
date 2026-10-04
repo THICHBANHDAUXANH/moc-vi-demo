@@ -4,7 +4,7 @@ Bản HTML/CSS/JavaScript tĩnh của giao diện Mộc Miên để xem trên Gi
 
 - Chè: Trà Trung Du đặc biệt, Trà Trung Du truyền thống, Chè Thái Nguyên; 100 g, 200 g, 1 kg.
 - Cacao: Cacao Đắk Lắk; 200 g, 500 g, 1 kg.
-- Cà phê Robusta Đắk Lắk đã xay: 200 g, 500 g, 1 kg; giá được cung cấp cho 1 kg là 200.000đ.
+- Cà phê Robusta Đắk Lắk đã xay: 200 g, 500 g, 1 kg; giá bán đang chờ chốt.
 
-Bảng chè người dùng gửi có chi phí vốn nhưng chưa có giá bán, nên giao diện không hiển thị giá chè. Giá cà phê 200 g và 500 g cũng chưa được cung cấp. Năm dòng Chè Thái Nguyên chưa có tên cấp trà riêng, nên hiện được gom thành một sản phẩm chờ xác nhận. Giỏ hàng chỉ chạy trong trình duyệt; website không nhận đơn hàng, thông tin khách hàng hay thanh toán.
+Bảng chè người dùng gửi có chi phí vốn nhưng chưa có giá bán, nên giao diện không hiển thị giá chè. Giá bán cà phê cũng chưa được chốt. Năm dòng Chè Thái Nguyên chưa có tên cấp trà riêng, nên hiện được gom thành một sản phẩm chờ xác nhận. Giỏ hàng chỉ chạy trong trình duyệt; website không nhận đơn hàng, thông tin khách hàng hay thanh toán.
 
