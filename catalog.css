@@ -90,3 +90,28 @@
 @media(max-width:900px){.nav{gap:22px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.category-art{height:320px}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.detail-layout{grid-template-columns:1fr 1fr}.detail-visual{min-height:580px}.detail-info{padding:45px 5vw}}
 @media(max-width:650px){.category-grid{grid-template-columns:1fr}.category-art{height:320px}.category-copy h3{font-size:39px}.catalog-hero{min-height:240px;padding:55px 5vw 35px}.catalog-hero h1{font-size:72px}.catalog-index{display:none}.catalog-section{padding:24px 5vw 70px}.catalog-grid{gap:16px}.catalog-image{height:245px}.catalog-card h2{font-size:19px}.catalog-meta{font-size:9px}.catalog-meta span:last-child{display:none}.breadcrumbs{padding:18px 5vw}.detail-layout{grid-template-columns:1fr}.detail-visual{min-height:400px;height:420px}.detail-visual img{max-height:370px}.detail-info{padding:42px 6vw 65px}.detail-info h1{font-size:45px}.detail-more{display:block;padding:55px 6vw}.detail-more h2{font-size:35px;margin-bottom:25px}}
 @media(max-width:390px){.catalog-grid{grid-template-columns:1fr}.catalog-image{height:320px}}
+.drawer{width:min(500px,100%);overflow-y:auto}
+.cart-items{flex:none;overflow:visible}
+.cart-item{align-items:flex-start}
+.cart-item img{width:72px;height:82px;flex:none;object-fit:cover}
+.cart-item .cart-item-info{flex:1;min-width:0}
+.cart-item .quantity-control{display:flex;flex-direction:row;align-items:center;gap:0;width:max-content;border:1px solid #cbd4c8}
+.cart-item .quantity-control button{width:30px;height:30px;display:grid;place-items:center;color:#214d39;text-decoration:none;font-size:18px}
+.cart-item .quantity-control span{min-width:26px;text-align:center}
+.cart-item .remove-item{font-size:12px}
+.cart-line-total{white-space:nowrap;font-size:13px}
+.cart-checkout{border-top:1px solid #dfe4da;margin-top:12px;padding-top:20px}
+.cart-summary{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin-bottom:24px}
+.cart-checkout h3{font-family:'Playfair Display',serif;font-size:25px;font-weight:500;margin:0 0 16px}
+.cart-checkout form{display:grid;gap:13px}
+.cart-checkout label{display:grid;gap:7px;font-size:12px;font-weight:600;color:#34503d}
+.cart-checkout input,.cart-checkout textarea,.cart-checkout select{width:100%;border:1px solid #cbd4c8;border-radius:0;background:#fff;color:#213b30;padding:11px 12px;font:14px 'DM Sans',Arial,sans-serif}
+.cart-checkout textarea{resize:vertical}
+.checkout-hint,.order-handoff p{font-size:12px;line-height:1.6;color:#68766a;margin:0}
+.order-submit,.zalo-checkout-link{display:block;width:100%;border:0;background:#214d39;color:#fff;padding:14px 18px;text-align:center;font-size:13px;font-weight:700}
+.order-submit:hover,.zalo-checkout-link:hover{background:#17382a}
+.checkout-status{min-height:20px;color:#214d39;font-size:12px;line-height:1.5;margin:0}
+.order-handoff{display:grid;gap:12px;background:#edf1e9;padding:16px}
+.order-handoff button{justify-self:start;border:1px solid #214d39;background:#fff;color:#214d39;padding:9px 14px;font-size:12px;font-weight:600}
+.order-handoff textarea{font-size:12px;line-height:1.6}
+.sample-note a{text-decoration:underline;text-underline-offset:3px;color:#214d39}

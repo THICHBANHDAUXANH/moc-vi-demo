@@ -1,9 +1,9 @@
 const products = [
-  { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet-photo-demo.png', photo: true },
-  { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong-photo-demo.png', photo: true },
-  { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen-photo-demo.png', photo: true },
-  { id: 'cacao-daklak', name: 'Cacao Đắk Lắk', category: 'cacao', type: 'Cacao', packaging: 'Đang cập nhật', image: './products/cacao-photo-demo.png', photo: true },
-  { id: 'ca-phe', name: 'Cà phê xay LA’CAPHE Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png', photo: true },
+  { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet-photo-demo.png', photo: true, prices: { '100 g': 99000, '200 g': 189000, '1 kg': 790000 } },
+  { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong-photo-demo.png', photo: true, prices: { '100 g': 89000, '200 g': 169000, '1 kg': 690000 } },
+  { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen-photo-demo.png', photo: true, prices: { '100 g': 59000, '200 g': 109000, '1 kg': 449000 } },
+  { id: 'cacao-daklak', name: 'Cacao Đắk Lắk', category: 'cacao', type: 'Cacao', packaging: '', image: './products/cacao-photo-demo.png', photo: true, prices: { '200 g': 129000, '500 g': 269000, '1 kg': 500000 } },
+  { id: 'ca-phe', name: 'Cà phê xay LA’CAPHE Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png', photo: true, prices: { '200 g': 99000, '500 g': 199000, '1 kg': 349000 } },
 ];
 const productById = Object.fromEntries(products.map(product => [product.id, product]));
 const page = document.body.dataset.page;
@@ -11,13 +11,15 @@ const requestedProduct = new URLSearchParams(location.search).get('id');
 const currentProduct = productById[requestedProduct];
 const productUrl = product => `./product.html?id=${encodeURIComponent(product.id)}`;
 const categories = {
-  che: { name: 'Chè', url: './che.html', index: '01', headingClass: 'tea-heading', description: 'Những dòng trà và chè Việt trong danh mục hiện tại. Chọn sản phẩm để xem quy cách 100 g, 200 g và 1 kg.' },
-  cacao: { name: 'Cacao', url: './cacao.html', index: '02', headingClass: 'cacao-heading', description: 'Cacao Đắk Lắk với các lựa chọn 200 g, 500 g và 1 kg. Giá bán đang được cập nhật.' },
-  caphe: { name: 'Cà phê', url: './caphe.html', index: '03', headingClass: 'coffee-heading', description: 'Cà phê xay LA’CAPHE Gia Lai, dự kiến có quy cách 200 g, 500 g và 1 kg. Giá bán đang được cập nhật.' },
+  che: { name: 'Chè', url: './che.html', index: '01', headingClass: 'tea-heading', description: 'Trà Trung Du và chè Thái Nguyên. Chọn hương vị và quy cách phù hợp với bạn.' },
+  cacao: { name: 'Cacao', url: './cacao.html', index: '02', headingClass: 'cacao-heading', description: 'Bột cacao Đắk Lắk nguyên chất, dành cho những tách cacao đậm vị.' },
+  caphe: { name: 'Cà phê', url: './caphe.html', index: '03', headingClass: 'coffee-heading', description: 'Cà phê xay LA’CAPHE Gia Lai, sẵn sàng cho ly cà phê mỗi ngày.' },
 };
 const categoryUrl = category => categories[category].url;
 const categoryName = category => categories[category].name;
 const formatPrice = value => new Intl.NumberFormat('vi-VN').format(value) + 'đ';
+const shopPhone = '0367478239';
+const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 const icon = {
   bag: '<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16l-1 12H5L4 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>',
   menu: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>',
@@ -25,55 +27,53 @@ const icon = {
 };
 
 function header() {
-  return `<div class="announcement">Mộc Miên · Chè, cacao &amp; cà phê <span>✦</span> Bản demo giao diện, chưa nhận đơn hàng</div>
+  return `<div class="announcement">Mộc Miên · Chè, cacao &amp; cà phê <span>✦</span> Đặt hàng qua Zalo ${shopPhone}</div>
     <header class="header">
       <button class="mobile-menu icon-button" id="menu-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav">${icon.menu}</button>
       <a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên"></a>
       <nav id="main-nav" class="nav" aria-label="Danh mục chính">${Object.entries(categories).map(([key, item]) => `<a href="${item.url}" ${page === key || currentProduct?.category === key ? 'aria-current="page"' : ''}>${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></nav>
-      <button class="cart-trigger icon-button" id="cart-toggle" aria-label="Xem giỏ hàng demo" aria-haspopup="dialog">${icon.bag}<span class="cart-count" id="cart-count">0</span></button>
+      <button class="cart-trigger icon-button" id="cart-toggle" aria-label="Xem giỏ hàng" aria-haspopup="dialog">${icon.bag}<span class="cart-count" id="cart-count">0</span></button>
     </header>`;
 }
 
 function footer() {
-  return `<footer id="footer"><div><a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên"></a><p>Chè, cacao và cà phê cho những phút giây an yên.</p></div><div><strong>Khám phá</strong>${Object.values(categories).map(item => `<a href="${item.url}">${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></div><div><strong>Thông tin</strong><span>Thông tin sản phẩm đang được hoàn thiện.</span></div><small>© 2026 Mộc Miên · Bản xem trước giao diện, chưa nhận đơn hàng</small></footer>`;
+  return `<footer id="footer"><div><a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên"></a><p>Chè, cacao và cà phê cho những phút giây an yên.</p></div><div><strong>Khám phá</strong>${Object.values(categories).map(item => `<a href="${item.url}">${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></div><div><strong>Liên hệ đặt hàng</strong><a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener">Nhắn Mộc Miên trên Zalo</a><a href="tel:${shopPhone}">${shopPhone}</a><span>Thanh toán COD hoặc chuyển khoản khi xác nhận đơn.</span></div><small>© 2026 Mộc Miên</small></footer>`;
 }
 
 function cartMarkup() {
-  return `<div class="drawer-overlay" id="cart-overlay" hidden><aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title"><div class="drawer-head"><h2 id="cart-title">Giỏ hàng demo <span id="drawer-count">(0)</span></h2><button class="icon-button" id="cart-close" aria-label="Đóng giỏ hàng">${icon.close}</button></div><div class="cart-items" id="cart-items"></div><p class="empty-cart" id="empty-cart">Giỏ hàng của bạn đang trống. Khám phá chè, cacao và cà phê nhé.</p><p class="cart-disclaimer">Giỏ hàng chỉ dùng để xem thử giao diện. Trang chưa nhận đơn hàng hoặc thanh toán; giá chưa có ở một số quy cách.</p></aside></div>`;
+  return `<div class="drawer-overlay" id="cart-overlay" hidden><aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title"><div class="drawer-head"><h2 id="cart-title">Giỏ hàng <span id="drawer-count">(0)</span></h2><button class="icon-button" id="cart-close" aria-label="Đóng giỏ hàng">${icon.close}</button></div><div class="cart-items" id="cart-items"></div><p class="empty-cart" id="empty-cart">Giỏ hàng đang trống. Chọn sản phẩm bạn yêu thích nhé.</p><div class="cart-checkout" id="cart-checkout" hidden><div class="cart-summary" id="cart-summary"></div><form id="order-form"><h3>Thông tin nhận hàng</h3><label>Họ và tên<input name="customerName" autocomplete="name" required maxlength="80"></label><label>Số điện thoại<input name="customerPhone" autocomplete="tel" inputmode="tel" required pattern="[0-9+ .-]{9,15}"></label><label>Địa chỉ nhận hàng<textarea name="customerAddress" autocomplete="street-address" required rows="2" maxlength="240"></textarea></label><label>Thanh toán<select name="payment"><option value="COD">Thanh toán khi nhận hàng (COD)</option><option value="Chuyển khoản">Chuyển khoản sau khi xác nhận đơn</option></select></label><label>Ghi chú (nếu có)<textarea name="customerNote" rows="2" maxlength="300"></textarea></label><p class="checkout-hint">Phí vận chuyển được báo và xác nhận qua Zalo trước khi gửi hàng.</p><button class="order-submit" type="submit">Tạo nội dung đơn hàng</button><div class="order-handoff" id="order-handoff" hidden><label>Nội dung đơn hàng<textarea id="order-message" rows="8" readonly></textarea></label><button type="button" id="copy-order">Sao chép nội dung</button><a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener" class="zalo-checkout-link">Mở Zalo để gửi đơn ↗</a><p>Dán nội dung vừa sao chép vào cuộc trò chuyện với Mộc Miên để xác nhận đơn.</p></div><p class="checkout-status" id="checkout-status" role="status" aria-live="polite"></p></form></div></aside></div>`;
 }
 
 function home() {
-  return `<section class="hero" id="home"><div class="hero-copy"><span class="eyebrow">— TỪ ĐẤT VIỆT, ĐẾN GÓC BÌNH YÊN</span><h1>Chút mộc mạc<br><em>trong từng vị.</em></h1><p>Chè thơm, cacao đậm và cà phê cho những phút giây chậm lại.</p><a href="#collections" class="primary-link">Khám phá danh mục <span aria-hidden="true">→</span></a><div class="hero-foot"><span>01 / 03</span><div></div><span>CHÈ · CÀ PHÊ · CACAO</span></div></div><div class="hero-art" aria-label="Ảnh danh mục chè, cà phê và cacao"><div class="hero-slides"><a class="hero-slide is-active" href="./che.html" aria-label="Khám phá chè"><img src="./products/che-thai-nguyen-photo-demo.png" alt="Ảnh demo chè Thái Nguyên"></a><a class="hero-slide" href="./caphe.html" aria-label="Khám phá cà phê"><img src="./products/caphe-photo-demo.png" alt="Ảnh demo cà phê LA’CAPHE Gia Lai"></a><a class="hero-slide" href="./cacao.html" aria-label="Khám phá cacao"><img src="./products/cacao-photo-demo.png" alt="Ảnh demo cacao Đắk Lắk"></a></div><div class="hero-slide-caption"><span id="hero-slide-count">01 / 03</span><strong id="hero-slide-name">Chè Việt</strong><span>Ảnh demo từ ảnh tham khảo</span></div><div class="hero-slide-controls" aria-label="Điều khiển ảnh danh mục"><button type="button" class="hero-arrow" id="hero-prev" aria-label="Ảnh trước">‹</button><div class="hero-dots"><button type="button" class="hero-dot is-active" data-slide="0" aria-label="Xem ảnh chè" aria-current="true"></button><button type="button" class="hero-dot" data-slide="1" aria-label="Xem ảnh cà phê"></button><button type="button" class="hero-dot" data-slide="2" aria-label="Xem ảnh cacao"></button></div><button type="button" class="hero-arrow" id="hero-next" aria-label="Ảnh tiếp theo">›</button></div></div></section>
-    <section class="collection collection-landing" id="collections"><div class="section-heading"><div><span class="eyebrow">BA DÒNG SẢN PHẨM</span><h2>Chọn <em>hương vị của bạn</em></h2></div><p>Khám phá từng danh mục và chọn quy cách phù hợp trên trang sản phẩm.</p></div><div class="category-grid"><a class="category-tile tea-tile" href="./che.html"><div class="category-art"><img src="./products/che-thai-nguyen-photo-demo.png" alt="Ảnh chỉnh dựng chè Thái Nguyên"></div><div class="category-copy"><span>01 / CHÈ VIỆT</span><h3>Chè</h3><p>Trà Trung Du và chè Thái Nguyên</p><b aria-hidden="true">↗</b></div></a><a class="category-tile cacao-tile" href="./cacao.html"><div class="category-art"><img src="./products/cacao-photo-demo.png" alt="Minh họa cacao Đắk Lắk"></div><div class="category-copy"><span>02 / CACAO VIỆT</span><h3>Cacao</h3><p>Cacao Đắk Lắk</p><b aria-hidden="true">↗</b></div></a><a class="category-tile coffee-tile" href="./caphe.html"><div class="category-art"><img src="./products/caphe-photo-demo.png" alt="Ảnh chỉnh dựng cà phê xay LA’CAPHE Gia Lai"></div><div class="category-copy"><span>03 / CÀ PHÊ</span><h3>Cà phê</h3><p>Cà phê xay LA’CAPHE Gia Lai</p><b aria-hidden="true">↗</b></div></a></div><p class="sample-note">Ảnh sản phẩm là bản chỉnh dựng từ ảnh tham khảo. Giá bán ở các quy cách chưa ghi rõ đang được cập nhật.</p></section>
+  return `<section class="hero" id="home"><div class="hero-copy"><span class="eyebrow">— TỪ ĐẤT VIỆT, ĐẾN GÓC BÌNH YÊN</span><h1>Chút mộc mạc<br><em>trong từng vị.</em></h1><p>Chè thơm, cacao đậm và cà phê cho những phút giây chậm lại.</p><a href="#collections" class="primary-link">Khám phá danh mục <span aria-hidden="true">→</span></a><div class="hero-foot"><span>01 / 03</span><div></div><span>CHÈ · CÀ PHÊ · CACAO</span></div></div><div class="hero-art" aria-label="Ảnh danh mục chè, cà phê và cacao"><div class="hero-slides"><a class="hero-slide is-active" href="./che.html" aria-label="Khám phá chè"><img src="./products/che-thai-nguyen-photo-demo.png" alt="Chè Thái Nguyên"></a><a class="hero-slide" href="./caphe.html" aria-label="Khám phá cà phê"><img src="./products/caphe-photo-demo.png" alt="Cà phê LA’CAPHE Gia Lai"></a><a class="hero-slide" href="./cacao.html" aria-label="Khám phá cacao"><img src="./products/cacao-photo-demo.png" alt="Cacao Đắk Lắk"></a></div><div class="hero-slide-caption"><span id="hero-slide-count">01 / 03</span><strong id="hero-slide-name">Chè Việt</strong><span>Khám phá sản phẩm</span></div><div class="hero-slide-controls" aria-label="Điều khiển ảnh danh mục"><button type="button" class="hero-arrow" id="hero-prev" aria-label="Ảnh trước">‹</button><div class="hero-dots"><button type="button" class="hero-dot is-active" data-slide="0" aria-label="Xem ảnh chè" aria-current="true"></button><button type="button" class="hero-dot" data-slide="1" aria-label="Xem ảnh cà phê"></button><button type="button" class="hero-dot" data-slide="2" aria-label="Xem ảnh cacao"></button></div><button type="button" class="hero-arrow" id="hero-next" aria-label="Ảnh tiếp theo">›</button></div></div></section>
+    <section class="collection collection-landing" id="collections"><div class="section-heading"><div><span class="eyebrow">BA DÒNG SẢN PHẨM</span><h2>Chọn <em>hương vị của bạn</em></h2></div><p>Khám phá từng danh mục và chọn quy cách phù hợp trên trang sản phẩm.</p></div><div class="category-grid"><a class="category-tile tea-tile" href="./che.html"><div class="category-art"><img src="./products/che-thai-nguyen-photo-demo.png" alt="Chè Thái Nguyên"></div><div class="category-copy"><span>01 / CHÈ VIỆT</span><h3>Chè</h3><p>Trà Trung Du và chè Thái Nguyên</p><b aria-hidden="true">↗</b></div></a><a class="category-tile cacao-tile" href="./cacao.html"><div class="category-art"><img src="./products/cacao-photo-demo.png" alt="Minh họa cacao Đắk Lắk"></div><div class="category-copy"><span>02 / CACAO VIỆT</span><h3>Cacao</h3><p>Cacao Đắk Lắk</p><b aria-hidden="true">↗</b></div></a><a class="category-tile coffee-tile" href="./caphe.html"><div class="category-art"><img src="./products/caphe-photo-demo.png" alt="Cà phê xay LA’CAPHE Gia Lai"></div><div class="category-copy"><span>03 / CÀ PHÊ</span><h3>Cà phê</h3><p>Cà phê xay LA’CAPHE Gia Lai</p><b aria-hidden="true">↗</b></div></a></div></section>
     <section class="story" id="story"><div class="story-art"><span class="story-sun"></span><span class="story-hill hill-one"></span><span class="story-hill hill-two"></span><span class="story-word">mộc miên</span></div><div class="story-copy"><span class="eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</span><h2>Từ vùng đất lành,<br>đến <em>tách trà của bạn.</em></h2><p>Chúng mình tin một thức uống ngon bắt đầu từ nguyên liệu tốt và sự trân trọng dành cho người làm ra nó. Mộc Miên là lời mời dành một khoảng lặng nhỏ trong ngày để thưởng thức chè, cacao và cà phê Việt.</p><a href="./che.html" class="text-link">Khám phá chè Việt <span aria-hidden="true">→</span></a></div></section>`;
 }
 
 function productCard(product, index) {
   const tone = product.category === 'caphe' ? 'coffee-tone' : `tone-${index % 4}`;
-  const label = product.prices ? `1 KG · ${formatPrice(product.prices['1 kg'])}` : product.category === 'che' ? product.packaging : 'QUY CÁCH 200 G · 500 G · 1 KG';
-  return `<article class="catalog-card"><a href="${productUrl(product)}" aria-label="Xem ${product.name}"><div class="catalog-image ${tone}"><img src="${product.image}" alt="Minh họa ${product.name}"></div><div class="catalog-meta"><span>${product.type.toUpperCase()}</span><span>${label}</span></div><h2>${product.name}</h2><p>Chọn sản phẩm <span aria-hidden="true">↗</span></p></a></article>`;
+  const fromPrice = Math.min(...Object.values(product.prices));
+  return `<article class="catalog-card"><a href="${productUrl(product)}" aria-label="Xem ${product.name}"><div class="catalog-image ${tone}"><img src="${product.image}" alt="Hình tham khảo ${product.name}"></div><div class="catalog-meta"><span>${product.type.toUpperCase()}</span><span>TỪ ${formatPrice(fromPrice)}</span></div><h2>${product.name}</h2><p>Xem quy cách và giá <span aria-hidden="true">↗</span></p></a></article>`;
 }
 
 function category(category) {
   const info = categories[category];
   const items = products.filter(product => product.category === category);
-  return `<section class="catalog-hero ${info.headingClass}"><div><span class="eyebrow">MỘC MIÊN / DANH MỤC</span><h1>${info.name}</h1><p>${info.description}</p></div><span class="catalog-index">${info.index} / 03</span></section><section class="catalog-section"><div class="catalog-tools"><span>${String(items.length).padStart(2, '0')} sản phẩm</span><nav aria-label="Chuyển danh mục">${Object.entries(categories).map(([key, item]) => `<a href="${item.url}" ${key === category ? 'aria-current="page"' : ''}>${item.name}</a>`).join('')}</nav></div><div class="catalog-grid">${items.map(productCard).join('')}</div><p class="sample-note">Ảnh sản phẩm đã xử lý từ ảnh tham khảo để xem trước giao diện; vui lòng kiểm tra nhãn thực tế trước khi bán. Giá bán chưa có ở một số quy cách.</p></section>`;
+  return `<section class="catalog-hero ${info.headingClass}"><div><span class="eyebrow">MỘC MIÊN / DANH MỤC</span><h1>${info.name}</h1><p>${info.description}</p></div><span class="catalog-index">${info.index} / 03</span></section><section class="catalog-section"><div class="catalog-tools"><span>${String(items.length).padStart(2, '0')} sản phẩm</span><nav aria-label="Chuyển danh mục">${Object.entries(categories).map(([key, item]) => `<a href="${item.url}" ${key === category ? 'aria-current="page"' : ''}>${item.name}</a>`).join('')}</nav></div><div class="catalog-grid">${items.map(productCard).join('')}</div><p class="sample-note">Chọn sản phẩm để xem giá theo từng quy cách. Cần tư vấn thêm? <a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener">Nhắn Mộc Miên qua Zalo ↗</a></p></section>`;
 }
 
 function detail(product) {
   if (!product) return `<section class="missing-product"><h1>Không tìm thấy sản phẩm</h1><a href="./che.html" class="text-link">Xem danh mục Chè →</a></section>`;
-  document.title = `${product.name} — Mộc Miên (Demo)`;
+  document.title = `${product.name} — Mộc Miên`;
   const sizes = product.category === 'che' ? [['100 g', '1 lạng'], ['200 g', '2 lạng'], ['1 kg', '1 cân']] : [['200 g', '2 lạng'], ['500 g', '5 lạng'], ['1 kg', '1 cân']];
-  const price = product.prices ? `1 kg · ${formatPrice(product.prices['1 kg'])}` : 'Giá bán đang cập nhật';
-  const facts = product.category === 'che' ? `Dòng: ${product.type}. Bao bì 1 kg trong bảng sản phẩm: ${product.packaging}. Quy cách 100 g và 200 g đang được hoàn thiện.` : 'Thông tin bao bì và mô tả chi tiết đang được cập nhật.';
-  return `<nav class="breadcrumbs" aria-label="Đường dẫn"><a href="./index.html">Trang chủ</a><span>/</span><a href="${categoryUrl(product.category)}">${categoryName(product.category)}</a><span>/</span><span aria-current="page">${product.name}</span></nav><section class="detail-layout"><div class="detail-visual"><img src="${product.image}" alt="Minh họa ${product.name}"></div><div class="detail-info"><span class="eyebrow">MỘC MIÊN / ${categoryName(product.category).toUpperCase()}</span><h1>${product.name}</h1><p class="detail-subtitle">${product.type} Việt${product.packaging === 'Đang cập nhật' ? '' : ` · ${product.packaging}`}</p><p class="detail-price" id="detail-price">${price}</p><div class="detail-divider"></div><div class="variant-block"><div class="variant-heading"><strong>Chọn quy cách</strong><span id="selected-size">Chưa chọn</span></div><div class="variant-options" role="group" aria-label="Quy cách đóng gói">${sizes.map(([weight, label]) => `<button type="button" data-size="${weight}" aria-pressed="false">${weight} <small>${label}</small></button>`).join('')}</div></div><button class="detail-add" id="add-to-cart" disabled>Chọn quy cách để thêm vào giỏ demo</button><p class="detail-note">${product.prices ? 'Giá 200 g và 500 g đang cập nhật.' : 'Giá bán của từng quy cách đang được cập nhật.'} Trang chưa nhận đơn hàng.</p><div class="detail-facts"><details open><summary>Thông tin sản phẩm</summary><p>${facts}</p></details><details><summary>Giao hàng và đặt mua</summary><p>Đây là bản xem trước giao diện. Chức năng nhận đơn và thanh toán chưa hoạt động.</p></details></div></div></section><section class="detail-more"><div><span class="eyebrow">KHÁM PHÁ THÊM</span><h2>${categoryName(product.category)} Mộc Miên</h2></div><a href="${categoryUrl(product.category)}" class="text-link">Xem toàn bộ danh mục <span aria-hidden="true">→</span></a></section>`;
+  const startingPrice = Math.min(...Object.values(product.prices));
+  return `<nav class="breadcrumbs" aria-label="Đường dẫn"><a href="./index.html">Trang chủ</a><span>/</span><a href="${categoryUrl(product.category)}">${categoryName(product.category)}</a><span>/</span><span aria-current="page">${product.name}</span></nav>
+    <section class="detail-layout"><div class="detail-visual"><img src="${product.image}" alt="Hình tham khảo ${product.name}"></div><div class="detail-info"><span class="eyebrow">MỘC MIÊN / ${categoryName(product.category).toUpperCase()}</span><h1>${product.name}</h1><p class="detail-subtitle">${product.type} Việt${product.packaging ? ` · ${product.packaging}` : ''}</p><p class="detail-price" id="detail-price">Từ ${formatPrice(startingPrice)}</p><div class="detail-divider"></div><div class="variant-block"><div class="variant-heading"><strong>Chọn quy cách</strong><span id="selected-size">Chưa chọn</span></div><div class="variant-options" role="group" aria-label="Quy cách đóng gói">${sizes.map(([weight, label]) => `<button type="button" data-size="${weight}" aria-pressed="false">${weight}<small>${label} · ${formatPrice(product.prices[weight])}</small></button>`).join('')}</div></div><button class="detail-add" id="add-to-cart" disabled>Chọn quy cách để thêm vào giỏ hàng</button><p class="detail-note">Giá chưa gồm phí vận chuyển. Shop sẽ báo phí ship để bạn xác nhận trước khi gửi hàng.</p><div class="detail-facts"><details open><summary>Thông tin sản phẩm</summary><p>${product.name} · ${sizes.map(([weight]) => weight).join(', ')}. Hình ảnh bao bì mang tính tham khảo cho từng quy cách.</p></details><details><summary>Giao hàng &amp; thanh toán</summary><p>Đặt hàng qua Zalo ${shopPhone}. Chọn thanh toán khi nhận hàng (COD) hoặc chuyển khoản sau khi shop xác nhận đơn và phí giao hàng.</p></details></div></div></section><section class="detail-more"><div><span class="eyebrow">KHÁM PHÁ THÊM</span><h2>${categoryName(product.category)} Mộc Miên</h2></div><a href="${categoryUrl(product.category)}" class="text-link">Xem toàn bộ danh mục <span aria-hidden="true">→</span></a></section>`;
 }
 
 const content = page === 'home' ? home() : categories[page] ? category(page) : detail(currentProduct);
 document.querySelector('#app').innerHTML = `${header()}<main>${content}</main>${footer()}${cartMarkup()}`;
-if (page === 'product' && currentProduct?.photo) {
-  document.querySelector('.detail-visual').insertAdjacentHTML('beforeend', '<span class="photo-disclosure">Ảnh demo đã chỉnh dựng từ ảnh tham khảo · Kiểm tra nhãn thật trước khi bán</span>');
-}
+if (page === 'product' && currentProduct?.photo) document.querySelector('.detail-visual').insertAdjacentHTML('beforeend', '<span class="photo-disclosure">Hình ảnh tham khảo · Bao bì có thể khác theo quy cách</span>');
 if (page === 'home') {
   const hero = document.querySelector('.hero-art');
   const slides = [...hero.querySelectorAll('.hero-slide')];
@@ -118,28 +118,83 @@ const menu = document.querySelector('#main-nav');
 const menuToggle = document.querySelector('#menu-toggle');
 menuToggle.addEventListener('click', () => { const open = menu.classList.toggle('nav-open'); menuToggle.setAttribute('aria-expanded', String(open)); });
 
-const storageKey = 'moc-mien-demo-cart';
-let cart;
-try { const stored = JSON.parse(sessionStorage.getItem(storageKey) || '[]'); cart = Array.isArray(stored) ? stored.filter(item => productById[item.id] && typeof item.size === 'string') : []; } catch { cart = []; }
+const storageKey = 'moc-mien-cart';
+let cart = [];
+try {
+  const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  if (Array.isArray(stored)) cart = stored.filter(item => productById[item.id]?.prices?.[item.size] && Number.isInteger(item.quantity) && item.quantity > 0 && item.quantity <= 99);
+} catch { cart = []; }
 const overlay = document.querySelector('#cart-overlay');
-const saveCart = () => sessionStorage.setItem(storageKey, JSON.stringify(cart));
+const saveCart = () => { try { localStorage.setItem(storageKey, JSON.stringify(cart)); } catch { /* Keep the current cart in memory. */ } };
+const cartTotal = () => cart.reduce((sum, item) => sum + productById[item.id].prices[item.size] * item.quantity, 0);
 const renderCart = () => {
-  document.querySelector('#cart-count').textContent = String(cart.length);
-  document.querySelector('#drawer-count').textContent = `(${cart.length})`;
-  document.querySelector('#cart-items').innerHTML = cart.map((item, position) => {
+  const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.querySelector('#cart-count').textContent = String(itemCount);
+  document.querySelector('#drawer-count').textContent = `(${itemCount})`;
+  document.querySelector('#cart-items').innerHTML = cart.map((item, index) => {
     const product = productById[item.id];
-    const price = product.prices?.[item.size];
-    return `<div class="cart-item"><img src="${product.image}" alt=""><div><strong>${product.name}</strong><span>${item.size}${price ? ` · ${formatPrice(price)}` : ' · Giá đang cập nhật'}</span><button type="button" data-remove="${position}">Xóa</button></div></div>`;
+    return `<div class="cart-item"><img src="${product.image}" alt=""><div class="cart-item-info"><strong>${escapeHtml(product.name)}</strong><span>${item.size} · ${formatPrice(product.prices[item.size])}</span><div class="quantity-control"><button type="button" data-cart-action="decrease" data-index="${index}" aria-label="Giảm số lượng ${escapeHtml(product.name)}">−</button><span>${item.quantity}</span><button type="button" data-cart-action="increase" data-index="${index}" aria-label="Tăng số lượng ${escapeHtml(product.name)}">+</button></div><button type="button" class="remove-item" data-cart-action="remove" data-index="${index}">Xóa</button></div><strong class="cart-line-total">${formatPrice(product.prices[item.size] * item.quantity)}</strong></div>`;
   }).join('');
   document.querySelector('#empty-cart').hidden = cart.length > 0;
+  document.querySelector('#cart-checkout').hidden = cart.length === 0;
+  document.querySelector('#cart-summary').innerHTML = `<span>Tạm tính (${itemCount} sản phẩm)</span><strong>${formatPrice(cartTotal())}</strong>`;
+  document.querySelector('#order-handoff').hidden = true;
+  document.querySelector('#checkout-status').textContent = '';
 };
 const closeCart = () => { overlay.hidden = true; document.body.style.overflow = ''; document.querySelector('#cart-toggle').focus(); };
 document.querySelector('#cart-toggle').addEventListener('click', () => { renderCart(); overlay.hidden = false; document.body.style.overflow = 'hidden'; document.querySelector('#cart-close').focus(); });
 document.querySelector('#cart-close').addEventListener('click', closeCart);
 overlay.addEventListener('click', event => { if (event.target === overlay) closeCart(); });
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && !overlay.hidden) closeCart(); });
-document.querySelector('#cart-items').addEventListener('click', event => { const button = event.target.closest('[data-remove]'); if (button) { cart.splice(Number(button.dataset.remove), 1); saveCart(); renderCart(); } });
+document.querySelector('#cart-items').addEventListener('click', event => {
+  const button = event.target.closest('[data-cart-action]');
+  if (!button) return;
+  const index = Number(button.dataset.index);
+  if (button.dataset.cartAction === 'remove') cart.splice(index, 1);
+  if (button.dataset.cartAction === 'increase' && cart[index]) cart[index].quantity = Math.min(99, cart[index].quantity + 1);
+  if (button.dataset.cartAction === 'decrease' && cart[index]) {
+    cart[index].quantity -= 1;
+    if (cart[index].quantity === 0) cart.splice(index, 1);
+  }
+  saveCart(); renderCart();
+});
 renderCart();
+
+const orderForm = document.querySelector('#order-form');
+orderForm.addEventListener('input', () => { document.querySelector('#order-handoff').hidden = true; });
+orderForm.addEventListener('submit', event => {
+  event.preventDefault();
+  if (!cart.length) return;
+  const data = new FormData(orderForm);
+  const orderLines = cart.map((item, index) => {
+    const product = productById[item.id];
+    return `${index + 1}. ${product.name} — ${item.size} × ${item.quantity}: ${formatPrice(product.prices[item.size] * item.quantity)}`;
+  });
+  const message = [
+    'MỘC MIÊN — YÊU CẦU ĐẶT HÀNG',
+    ...orderLines,
+    `Tạm tính: ${formatPrice(cartTotal())}`,
+    'Phí vận chuyển: xác nhận qua Zalo',
+    `Người nhận: ${String(data.get('customerName')).trim()}`,
+    `Điện thoại: ${String(data.get('customerPhone')).trim()}`,
+    `Địa chỉ: ${String(data.get('customerAddress')).trim()}`,
+    `Thanh toán: ${data.get('payment')}`,
+    data.get('customerNote') ? `Ghi chú: ${String(data.get('customerNote')).trim()}` : '',
+  ].filter(Boolean).join('\n');
+  document.querySelector('#order-message').value = message;
+  document.querySelector('#order-handoff').hidden = false;
+  document.querySelector('#checkout-status').textContent = 'Nội dung đơn đã sẵn sàng. Sao chép rồi gửi qua Zalo để shop xác nhận.';
+});
+document.querySelector('#copy-order').addEventListener('click', async () => {
+  const message = document.querySelector('#order-message').value;
+  try {
+    await navigator.clipboard.writeText(message);
+    document.querySelector('#checkout-status').textContent = 'Đã sao chép. Mở Zalo và dán nội dung đơn vào cuộc trò chuyện.';
+  } catch {
+    document.querySelector('#order-message').select();
+    document.querySelector('#checkout-status').textContent = 'Hãy sao chép nội dung đang được chọn, rồi dán vào Zalo.';
+  }
+});
 
 if (page === 'product' && currentProduct) {
   let selectedSize = '';
@@ -148,14 +203,15 @@ if (page === 'product' && currentProduct) {
     selectedSize = button.dataset.size;
     document.querySelectorAll('[data-size]').forEach(option => option.setAttribute('aria-pressed', String(option === button)));
     document.querySelector('#selected-size').textContent = selectedSize;
-    const selectedPrice = currentProduct.prices?.[selectedSize];
-    document.querySelector('#detail-price').textContent = selectedPrice ? formatPrice(selectedPrice) : 'Giá bán đang cập nhật';
+    document.querySelector('#detail-price').textContent = formatPrice(currentProduct.prices[selectedSize]);
     addButton.disabled = false;
-    addButton.textContent = 'Thêm vào giỏ demo';
+    addButton.textContent = 'Thêm vào giỏ hàng';
   }));
   addButton.addEventListener('click', () => {
     if (!selectedSize) return;
-    cart.push({ id: currentProduct.id, size: selectedSize });
+    const existing = cart.find(item => item.id === currentProduct.id && item.size === selectedSize);
+    if (existing) existing.quantity = Math.min(99, existing.quantity + 1);
+    else cart.push({ id: currentProduct.id, size: selectedSize, quantity: 1 });
     saveCart(); renderCart();
     document.querySelector('#cart-toggle').click();
   });

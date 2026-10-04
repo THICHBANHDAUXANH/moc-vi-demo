@@ -1,14 +1,7 @@
-﻿# Mộc Miên — bản demo giao diện
+# Mộc Miên
 
-Bản HTML/CSS/JavaScript tĩnh của giao diện Mộc Miên để xem trên GitHub Pages. Trang chủ dẫn tới ba danh mục riêng: `che.html`, `cacao.html` và `caphe.html`. Mỗi sản phẩm mở `product.html?id=...` để chọn quy cách.
+Website tĩnh cho ba danh mục chè, cacao Đắk Lắk và cà phê Gia Lai. GitHub Pages phục vụ trang; khách chọn quy cách, thêm vào giỏ, nhập thông tin nhận hàng, rồi sao chép nội dung đơn để gửi qua Zalo `0367478239`. Shop xác nhận đơn và phí vận chuyển trong cuộc trò chuyện. Trang hỗ trợ lựa chọn COD hoặc chuyển khoản sau khi xác nhận, không thu tiền trực tuyến.
 
-Ảnh lớn trên trang chủ tự chuyển theo thứ tự chè → cà phê → cacao sau mỗi 5 giây. Có nút chuyển và chấm chọn ảnh; chế độ giảm chuyển động sẽ tắt tự chuyển.
+Giá bán nằm trong `script.js` ở trường `prices` của từng sản phẩm. Không đưa giá vốn hoặc thông tin nội bộ vào repository công khai.
 
-- Chè: Trà Trung Du đặc biệt, Trà Trung Du truyền thống, Chè Thái Nguyên; 100 g, 200 g, 1 kg.
-- Cacao: Cacao Đắk Lắk; 200 g, 500 g, 1 kg.
-- Cà phê xay LA’CAPHE Gia Lai: dự kiến 200 g, 500 g, 1 kg; giá bán đang chờ chốt. Tên được đổi theo bao bì trong ảnh người dùng gửi.
-
-Ảnh ba sản phẩm chè, cacao, cà phê và chùm quả cà phê trong `products/*-demo.png` là ảnh chỉnh dựng bằng ImageGen từ ảnh tham khảo người dùng gửi trong chat. Theo cách ghép người dùng chọn: ảnh hai gói vàng xanh là Chè Thái Nguyên; ảnh bàn trà là Trà Trung Du đặc biệt; ảnh các hộp trà là Trà Trung Du truyền thống. Chữ nhỏ và chi tiết bao bì có thể khác ảnh gốc; cần thay bằng tệp ảnh gốc và đối chiếu tên, nhãn, quy cách trước khi dùng để bán hàng.
-
-Bảng chè người dùng gửi có chi phí vốn nhưng chưa có giá bán, nên giao diện không hiển thị giá chè. Giá bán cà phê cũng chưa được chốt. Năm dòng Chè Thái Nguyên chưa có tên cấp trà riêng, nên hiện được gom thành một sản phẩm chờ xác nhận. Giỏ hàng chỉ chạy trong trình duyệt; website không nhận đơn hàng, thông tin khách hàng hay thanh toán.
-
+Ảnh sản phẩm hiện có được chỉnh dựng từ ảnh tham khảo gửi trong chat. Trước khi dùng làm ảnh bán hàng chính thức, cần thay bằng tệp ảnh gốc và đối chiếu chữ trên nhãn, nguồn gốc, khối lượng và dạng bao bì. Ảnh của ba sản phẩm chè được gắn theo cách người bán chỉ định.
