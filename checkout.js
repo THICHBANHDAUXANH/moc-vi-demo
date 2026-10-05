@@ -34,9 +34,13 @@
     const timer = setTimeout(() => controller.abort(), 12000);
 
     try {
+      const accessToken = window.MocMienAuth?.token?.() || '';
+      const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
+      if (accessToken) headers.Authorization = 'Bearer ' + accessToken;
+
       const response = await fetch(base + '/api/orders', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers,
         body: JSON.stringify(payload),
         signal: controller.signal,
       });
