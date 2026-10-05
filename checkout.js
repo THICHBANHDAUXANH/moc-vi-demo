@@ -36,7 +36,6 @@
     try {
       const response = await fetch(base + '/api/orders', {
         method: 'POST',
-        credentials: 'include',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload),
         signal: controller.signal,
@@ -46,7 +45,10 @@
       try { body = await response.json(); } catch { body = null; }
 
       if (!response.ok) {
-        const message = body?.message || body?.error || ('Không thể tạo đơn (HTTP ' + response.status + ').');
+        const detail = Array.isArray(body?.detail)
+          ? body.detail.map(item => item?.msg || item?.message || JSON.stringify(item)).join('; ')
+          : body?.detail;
+        const message = detail || body?.message || body?.error || ('Không thể tạo đơn (HTTP ' + response.status + ').');
         throw new Error(message);
       }
 
