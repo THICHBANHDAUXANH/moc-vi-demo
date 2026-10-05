@@ -31,9 +31,12 @@ security = HTTPBearer()
 def decode_token(credentials: HTTPAuthorizationCredentials = Security(security)):
     try:
         payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id: str = payload.get("sub")
-        if user_id is None:
+        user_id_str = payload.get("sub")
+        if user_id_str is None:
             raise HTTPException(status_code=401, detail="Token không hợp lệ")
-        return user_id
-    except JWTError:
+        
+        # Ép kiểu chuỗi sang số nguyên (Integer)
+        return int(user_id_str) 
+        
+    except (JWTError, ValueError, TypeError): # Đã thêm ValueError và TypeError
         raise HTTPException(status_code=401, detail="Token đã hết hạn hoặc sai")

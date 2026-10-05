@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from src.db.database import get_db
 from src.db.models import User
-from src.auth.utils import get_password_hash, verify_password, create_access_token
 from src.auth.utils import get_password_hash, verify_password, create_access_token, decode_token
 
 router = APIRouter(prefix="/api/auth", tags=["Auth"])
@@ -40,7 +39,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     return {"access_token": access_token, "user_id": db_user.id}
 
 @router.get("/me")
-def get_current_user(user_id: str = Depends(decode_token), db: Session = Depends(get_db)):
+def get_current_user(user_id: int = Depends(decode_token), db: Session = Depends(get_db)):
     db_user = db.query(User).filter(User.id == user_id).first()
     if not db_user:
         raise HTTPException(status_code=404, detail="Người dùng không tồn tại")
