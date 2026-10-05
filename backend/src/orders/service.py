@@ -52,7 +52,7 @@ def create_order(db: Session, payload: OrderCreate) -> dict:
         guest_name=payload.customer.name.strip(),
         guest_contact=payload.customer.phone.strip(),
         shipping_address=payload.customer.address.strip(),
-        total_amount=float(total),
+        total_amount=int(total),
         payment_method=payload.payment_method,
         status="pending",
     )
@@ -67,7 +67,7 @@ def create_order(db: Session, payload: OrderCreate) -> dict:
                     order_id=order.id,
                     product_id=product.id,
                     quantity=quantity,
-                    unit_price=float(unit_price),
+                    unit_price=int(unit_price),
                 )
             )
 
