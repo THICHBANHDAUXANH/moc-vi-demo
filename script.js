@@ -1,9 +1,9 @@
 const products = [
-  { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet-photo-demo.png', photo: true, prices: { '100 g': 99000, '200 g': 189000, '1 kg': 790000 } },
-  { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong-photo-demo.png', photo: true, prices: { '100 g': 89000, '200 g': 169000, '1 kg': 690000 } },
-  { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen-photo-demo.png', photo: true, prices: { '100 g': 59000, '200 g': 109000, '1 kg': 349000 } },
-  { id: 'cacao-daklak', name: 'Cacao Đắk Lắk', category: 'cacao', type: 'Cacao', packaging: '', image: './products/cacao-photo-demo.png', photo: true, prices: { '200 g': 129000, '500 g': 269000, '1 kg': 500000 } },
-  { id: 'ca-phe', name: 'Cà phê xay LA’CAPHE Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png', photo: true, prices: { '200 g': 99000, '500 g': 199000, '1 kg': 349000 } },
+  { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet-photo-demo.png', photo: true, prices: { '100 g': 99000, '200 g': 189000, '1 kg': 790000 }, skus: { '100 g': 'TRA-TD-DB-100G', '200 g': 'TRA-TD-DB-200G', '1 kg': 'TRA-TD-DB-1KG' } },
+  { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong-photo-demo.png', photo: true, prices: { '100 g': 89000, '200 g': 169000, '1 kg': 690000 }, skus: { '100 g': 'TRA-TD-TT-100G', '200 g': 'TRA-TD-TT-200G', '1 kg': 'TRA-TD-TT-1KG' } },
+  { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen-photo-demo.png', photo: true, prices: { '100 g': 59000, '200 g': 109000, '1 kg': 349000 }, skus: { '100 g': 'CHE-TN-100G', '200 g': 'CHE-TN-200G', '1 kg': 'CHE-TN-1KG' } },
+  { id: 'cacao-daklak', name: 'Cacao Đắk Lắk', category: 'cacao', type: 'Cacao', packaging: '', image: './products/cacao-photo-demo.png', photo: true, prices: { '200 g': 129000, '500 g': 269000, '1 kg': 500000 }, skus: { '200 g': 'CACAO-DL-200G', '500 g': 'CACAO-DL-500G', '1 kg': 'CACAO-DL-1KG' } },
+  { id: 'ca-phe', name: 'Cà phê xay LA’CAPHE Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png', photo: true, prices: { '200 g': 99000, '500 g': 199000, '1 kg': 349000 }, skus: { '200 g': 'CAPHE-GL-200G', '500 g': 'CAPHE-GL-500G', '1 kg': 'CAPHE-GL-1KG' } },
 ];
 const productById = Object.fromEntries(products.map(product => [product.id, product]));
 const page = document.body.dataset.page;
@@ -205,7 +205,7 @@ orderForm.addEventListener('submit', async event => {
   checkoutStatus.textContent = 'Đang gửi thông tin đơn hàng…';
 
   try {
-    const payload = window.MocMienCheckout.buildOrderPayload({ cart, formData: data });
+    const payload = window.MocMienCheckout.buildOrderPayload({ cart, formData: data, catalog: productById });
     const result = await window.MocMienCheckout.createOrder(payload);
 
     if (result.mode === 'api') {
