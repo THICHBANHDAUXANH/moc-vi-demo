@@ -17,7 +17,7 @@ def _vnd(value: object) -> Decimal:
     return Decimal(str(value)).quantize(VND, rounding=ROUND_HALF_UP)
 
 
-def create_order(db: Session, payload: OrderCreate) -> dict:
+def create_order(db: Session, payload: OrderCreate, user_id: int | None = None) -> dict:
     ensure_catalog(db)
 
     quantities: dict[str, int] = {}
@@ -48,7 +48,7 @@ def create_order(db: Session, payload: OrderCreate) -> dict:
         lines.append((product, quantity, unit_price, line_total))
 
     order = Order(
-        user_id=None,
+        user_id=user_id,
         guest_name=payload.customer.name.strip(),
         guest_contact=payload.customer.phone.strip(),
         shipping_address=payload.customer.address.strip(),
