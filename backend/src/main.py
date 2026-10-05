@@ -1,9 +1,11 @@
 import os
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import text
+from sqlalchemy.orm import Session
 
-from src.db.database import engine, Base
+from src.db.database import engine, Base, get_db
 from src.auth.router import router as auth_router
 from src.orders.router import router as orders_router
 
@@ -12,6 +14,12 @@ from src.orders.router import router as orders_router
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="API Mộc Miên")
+
+
+@app.get("/api/health", tags=["System"])
+def health(db: Session = Depends(get_db)):
+    db.execute(text("SELECT 1"))
+    return {"status": "ok"}
 
 default_cors_origins = ",".join(
     [
