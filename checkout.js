@@ -4,13 +4,18 @@
   const trim = value => String(value ?? '').trim();
   const apiBaseUrl = () => trim(window.MOC_MIEN_API_BASE_URL).replace(/\/+$/, '');
 
-  function buildOrderPayload({ cart, formData }) {
-    return {
-      items: cart.map(item => ({
-        product_id: item.id,
-        variant: item.size,
+  function buildOrderPayload({ cart, formData, catalog }) {
+    const items = cart.map(item => {
+      const sku = catalog?.[item.id]?.skus?.[item.size];
+      if (!sku) throw new Error('Không tìm thấy mã SKU cho sản phẩm trong giỏ. Hãy tải lại trang và thử lại.');
+      return {
+        sku,
         quantity: item.quantity,
-      })),
+      };
+    });
+
+    return {
+      items,
       customer: {
         name: trim(formData.get('customerName')),
         phone: trim(formData.get('customerPhone')),
