@@ -18,9 +18,9 @@ GitHub Pages hiện xuất bản nhánh `main` từ thư mục gốc. Giữ các
 | Người | Phần việc | Vùng chỉnh sửa chính | Bàn giao |
 | --- | --- | --- | --- |
 | Hoàng Sơn | Cơ sở dữ liệu, đăng ký, đăng nhập | `backend/src/auth/`, `backend/src/db/` | Migration, API xác thực, hướng dẫn chạy, kiểm thử API |
-| Bùi Đăng Cường | Đơn hàng và thanh toán | `backend/src/orders/`, `backend/src/payments/` | API tạo đơn, luồng COD/chuyển khoản, kiểm thử API |
+| Bùi Đăng Cường | UI, checkout và thanh toán | HTML/CSS/JS ở gốc, `checkout.js`, `backend/src/orders/`, `backend/src/payments/` | Hoàn thiện giao diện, kết nối API tạo đơn, COD/chuyển khoản, kiểm thử luồng checkout |
 | Dương Huy Phúc | So sánh host miễn phí, triển khai bản thử | `infra/`, `.github/workflows/` | Bảng giới hạn host, hướng dẫn deploy, URL thử và biến môi trường cần thiết |
-| Chủ repo | Giao diện và ghép các phần | HTML/CSS/JS ở gốc, `products/` | Kết nối API, kiểm tra luồng đặt hàng, duyệt và merge PR |
+| Chủ repo | Ghép các phần và duyệt PR | `docs/`, cấu hình chung | Chốt API contract, kiểm tra tích hợp, review và merge PR |
 
 Thư mục thể hiện chức năng, không đặt theo tên người. Khi cần sửa vùng của người khác, ghi rõ trong PR và nhờ người đó review. Sơn quản lý migration; Cường thống nhất thay đổi schema đơn hàng với Sơn trước khi viết migration. Mọi người chốt đường dẫn API và cấu trúc dữ liệu trong [API_CONTRACT.md](API_CONTRACT.md) trước khi nối frontend.
 
@@ -43,3 +43,12 @@ Mở pull request từ nhánh của mình vào `main`. Trước khi merge: cập
 Thứ tự ghép đề xuất: thống nhất API và schema → xác thực/cơ sở dữ liệu → đơn hàng/thanh toán → kết nối giao diện → deploy backend thử → kiểm tra toàn bộ luồng → chuyển môi trường chính thức. Phúc có thể khảo sát host song song, nhưng chưa chuyển site chính sang host mới trước khi luồng đặt hàng chạy ổn trên URL thử.
 
 Trên GitHub, chủ repo nên bật **Settings → Branches → Add branch protection rule** cho `main`, yêu cầu pull request và ít nhất một review trước khi merge. Nếu có CI, thêm yêu cầu kiểm tra chạy thành công. Chỉ thêm người vào `CODEOWNERS` khi đã biết đúng username GitHub của họ.
+
+
+## Quy ước chống conflict cho nhánh UI/payment
+
+- Nhánh của Cường: `feat/ui-payment`.
+- Sơn không sửa trực tiếp `script.js`, `checkout.js`, `style.css`, `catalog.css` trong lúc nhánh UI/payment đang mở; nếu API cần frontend đổi, cập nhật `docs/API_CONTRACT.md` rồi báo Cường.
+- Cường không sửa migration hoặc auth của Sơn. Frontend chỉ gọi API qua `checkout.js`, không nhúng logic database hay secret.
+- Phúc chỉ cấu hình `API_BASE_URL`/deploy; không hard-code URL production vào `script.js`.
+- Khi cần lấy thay đổi của người khác, ưu tiên `git fetch origin && git rebase origin/main` trên nhánh cá nhân rồi giải conflict tại nhánh đó; không giải conflict trực tiếp trên `main`.

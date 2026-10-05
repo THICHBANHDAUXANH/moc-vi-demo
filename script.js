@@ -1,9 +1,9 @@
 const products = [
-  { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet-photo-demo.png', photo: true, prices: { '100 g': 99000, '200 g': 189000, '1 kg': 790000 } },
-  { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong-photo-demo.png', photo: true, prices: { '100 g': 89000, '200 g': 169000, '1 kg': 690000 } },
-  { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen-photo-demo.png', photo: true, prices: { '100 g': 59000, '200 g': 109000, '1 kg': 349000 } },
-  { id: 'cacao-daklak', name: 'Cacao Đắk Lắk', category: 'cacao', type: 'Cacao', packaging: '', image: './products/cacao-photo-demo.png', photo: true, prices: { '200 g': 129000, '500 g': 269000, '1 kg': 500000 } },
-  { id: 'ca-phe', name: 'Cà phê xay LA’CAPHE Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png', photo: true, prices: { '200 g': 99000, '500 g': 199000, '1 kg': 349000 } },
+  { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet-photo-demo.png', photo: true, prices: { '100 g': 99000, '200 g': 189000, '1 kg': 790000 }, skus: { '100 g': 'TRA-TD-DB-100G', '200 g': 'TRA-TD-DB-200G', '1 kg': 'TRA-TD-DB-1KG' } },
+  { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong-photo-demo.png', photo: true, prices: { '100 g': 89000, '200 g': 169000, '1 kg': 690000 }, skus: { '100 g': 'TRA-TD-TT-100G', '200 g': 'TRA-TD-TT-200G', '1 kg': 'TRA-TD-TT-1KG' } },
+  { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen-photo-demo.png', photo: true, prices: { '100 g': 59000, '200 g': 109000, '1 kg': 349000 }, skus: { '100 g': 'CHE-TN-100G', '200 g': 'CHE-TN-200G', '1 kg': 'CHE-TN-1KG' } },
+  { id: 'cacao-daklak', name: 'Cacao Đắk Lắk', category: 'cacao', type: 'Cacao', packaging: '', image: './products/cacao-photo-demo.png', photo: true, prices: { '200 g': 129000, '500 g': 269000, '1 kg': 500000 }, skus: { '200 g': 'CACAO-DL-200G', '500 g': 'CACAO-DL-500G', '1 kg': 'CACAO-DL-1KG' } },
+  { id: 'ca-phe', name: 'Cà phê xay LA’CAPHE Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png', photo: true, prices: { '200 g': 99000, '500 g': 199000, '1 kg': 349000 }, skus: { '200 g': 'CAPHE-GL-200G', '500 g': 'CAPHE-GL-500G', '1 kg': 'CAPHE-GL-1KG' } },
 ];
 const productById = Object.fromEntries(products.map(product => [product.id, product]));
 const page = document.body.dataset.page;
@@ -41,7 +41,7 @@ function footer() {
 }
 
 function cartMarkup() {
-  return `<div class="drawer-overlay" id="cart-overlay" hidden><aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title"><div class="drawer-head"><h2 id="cart-title">Giỏ hàng <span id="drawer-count">(0)</span></h2><button class="icon-button" id="cart-close" aria-label="Đóng giỏ hàng">${icon.close}</button></div><div class="cart-items" id="cart-items"></div><p class="empty-cart" id="empty-cart">Giỏ hàng đang trống. Chọn sản phẩm bạn yêu thích nhé.</p><div class="cart-checkout" id="cart-checkout" hidden><div class="cart-summary" id="cart-summary"></div><form id="order-form"><h3>Thông tin nhận hàng</h3><label>Họ và tên<input name="customerName" autocomplete="name" required maxlength="80"></label><label>Số điện thoại<input name="customerPhone" autocomplete="tel" inputmode="tel" required pattern="[0-9+ .-]{9,15}"></label><label>Địa chỉ nhận hàng<textarea name="customerAddress" autocomplete="street-address" required rows="2" maxlength="240"></textarea></label><label>Thanh toán<select name="payment"><option value="COD">Thanh toán khi nhận hàng (COD)</option><option value="Chuyển khoản">Chuyển khoản sau khi xác nhận đơn</option></select></label><label>Ghi chú (nếu có)<textarea name="customerNote" rows="2" maxlength="300"></textarea></label><p class="checkout-hint">Phí vận chuyển được báo và xác nhận qua Zalo trước khi gửi hàng.</p><button class="order-submit" type="submit">Tạo nội dung đơn hàng</button><div class="order-handoff" id="order-handoff" hidden><label>Nội dung đơn hàng<textarea id="order-message" rows="8" readonly></textarea></label><button type="button" id="copy-order">Sao chép nội dung</button><a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener" class="zalo-checkout-link">Mở Zalo để gửi đơn ↗</a><p>Dán nội dung vừa sao chép vào cuộc trò chuyện với Mộc Miên để xác nhận đơn.</p></div><p class="checkout-status" id="checkout-status" role="status" aria-live="polite"></p></form></div></aside></div>`;
+  return `<div class="drawer-overlay" id="cart-overlay" hidden><aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title"><div class="drawer-head"><h2 id="cart-title">Giỏ hàng <span id="drawer-count">(0)</span></h2><button class="icon-button" id="cart-close" aria-label="Đóng giỏ hàng">${icon.close}</button></div><div class="cart-items" id="cart-items"></div><p class="empty-cart" id="empty-cart">Giỏ hàng đang trống. Chọn sản phẩm bạn yêu thích nhé.</p><div class="cart-checkout" id="cart-checkout" hidden><div class="cart-summary" id="cart-summary"></div><form id="order-form"><h3>Thông tin nhận hàng</h3><label>Họ và tên<input name="customerName" autocomplete="name" required maxlength="80"></label><label>Số điện thoại<input name="customerPhone" autocomplete="tel" inputmode="tel" required pattern="[0-9+ .-]{9,15}"></label><label>Địa chỉ nhận hàng<textarea name="customerAddress" autocomplete="street-address" required rows="2" maxlength="240"></textarea></label><fieldset class="payment-methods"><legend>Phương thức thanh toán</legend><label class="payment-option"><input type="radio" name="payment" value="cod" checked><span><strong>Thanh toán khi nhận hàng (COD)</strong><small>Thanh toán khi đơn được giao tới bạn.</small></span></label><label class="payment-option"><input type="radio" name="payment" value="bank_transfer"><span><strong>Chuyển khoản ngân hàng</strong><small>Nhận hướng dẫn hoặc mã QR sau khi đơn được tạo.</small></span></label></fieldset><p class="payment-help" id="payment-help"></p><label>Ghi chú (nếu có)<textarea name="customerNote" rows="2" maxlength="300"></textarea></label><p class="checkout-hint">Phí vận chuyển được báo và xác nhận qua Zalo trước khi gửi hàng.</p><button class="order-submit" type="submit">Xác nhận đặt hàng</button><div class="order-handoff" id="order-handoff" hidden><div class="order-result" id="order-result"></div><label>Nội dung đơn hàng<textarea id="order-message" rows="8" readonly></textarea></label><button type="button" id="copy-order">Sao chép nội dung</button><a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener" class="zalo-checkout-link">Mở Zalo để gửi đơn ↗</a><p>Dán nội dung vừa sao chép vào cuộc trò chuyện với Mộc Miên để xác nhận đơn.</p></div><p class="checkout-status" id="checkout-status" role="status" aria-live="polite"></p></form></div></aside></div>`;
 }
 
 function home() {
@@ -161,29 +161,80 @@ document.querySelector('#cart-items').addEventListener('click', event => {
 renderCart();
 
 const orderForm = document.querySelector('#order-form');
-orderForm.addEventListener('input', () => { document.querySelector('#order-handoff').hidden = true; });
-orderForm.addEventListener('submit', event => {
+const paymentHelp = document.querySelector('#payment-help');
+const checkoutStatus = document.querySelector('#checkout-status');
+const orderSubmit = orderForm.querySelector('.order-submit');
+const updatePaymentHelp = () => {
+  const method = new FormData(orderForm).get('payment') || 'cod';
+  paymentHelp.textContent = window.MocMienCheckout?.paymentHelp(method) || '';
+};
+orderForm.addEventListener('input', () => {
+  document.querySelector('#order-handoff').hidden = true;
+  updatePaymentHelp();
+});
+updatePaymentHelp();
+
+orderForm.addEventListener('submit', async event => {
   event.preventDefault();
-  if (!cart.length) return;
+  if (!cart.length || orderSubmit.disabled) return;
+
   const data = new FormData(orderForm);
+  const paymentMethod = data.get('payment') === 'bank_transfer' ? 'bank_transfer' : 'cod';
   const orderLines = cart.map((item, index) => {
     const product = productById[item.id];
     return `${index + 1}. ${product.name} — ${item.size} × ${item.quantity}: ${formatPrice(product.prices[item.size] * item.quantity)}`;
   });
+  const paymentLabel = paymentMethod === 'bank_transfer' ? 'Chuyển khoản ngân hàng' : 'Thanh toán khi nhận hàng (COD)';
   const message = [
     'MỘC MIÊN — YÊU CẦU ĐẶT HÀNG',
     ...orderLines,
     `Tạm tính: ${formatPrice(cartTotal())}`,
-    'Phí vận chuyển: xác nhận qua Zalo',
+    'Phí vận chuyển: shop xác nhận trước khi gửi',
     `Người nhận: ${String(data.get('customerName')).trim()}`,
     `Điện thoại: ${String(data.get('customerPhone')).trim()}`,
     `Địa chỉ: ${String(data.get('customerAddress')).trim()}`,
-    `Thanh toán: ${data.get('payment')}`,
+    `Thanh toán: ${paymentLabel}`,
     data.get('customerNote') ? `Ghi chú: ${String(data.get('customerNote')).trim()}` : '',
   ].filter(Boolean).join('\n');
+
+  const handoff = document.querySelector('#order-handoff');
+  const resultBox = document.querySelector('#order-result');
   document.querySelector('#order-message').value = message;
-  document.querySelector('#order-handoff').hidden = false;
-  document.querySelector('#checkout-status').textContent = 'Nội dung đơn đã sẵn sàng. Sao chép rồi gửi qua Zalo để shop xác nhận.';
+  orderSubmit.disabled = true;
+  orderSubmit.textContent = 'Đang tạo đơn…';
+  checkoutStatus.textContent = 'Đang gửi thông tin đơn hàng…';
+
+  try {
+    const payload = window.MocMienCheckout.buildOrderPayload({ cart, formData: data, catalog: productById });
+    const result = await window.MocMienCheckout.createOrder(payload);
+
+    if (result.mode === 'api') {
+      const order = result.order || {};
+      const orderId = order.id || order.order_id || order.code || order.order_code || '';
+      const payment = order.payment || order.payment_info || {};
+      const total = order.total ?? order.total_amount;
+      const serverTotal = Number(total);
+      const bankText = paymentMethod === 'bank_transfer'
+        ? (payment.qr_url || payment.checkout_url
+            ? 'Thông tin thanh toán đã được máy chủ tạo. Mở liên kết/QR được cung cấp sau khi backend hoàn thiện.'
+            : 'Đơn đã tạo. Chờ thông tin chuyển khoản được máy chủ xác nhận.')
+        : 'Đơn đã tạo với phương thức COD.';
+      resultBox.innerHTML = `<strong>Đơn hàng đã được tạo${orderId ? ` · #${escapeHtml(orderId)}` : ''}</strong><span>${Number.isFinite(serverTotal) ? `Tổng tiền xác nhận: ${formatPrice(serverTotal)}. ` : ''}${bankText}</span>`;
+      checkoutStatus.textContent = 'Đã tạo đơn thành công.';
+    } else {
+      resultBox.innerHTML = '<strong>Chế độ demo</strong><span>Backend chưa được cấu hình trên GitHub Pages. Bạn vẫn có thể sao chép đơn và gửi qua Zalo để shop xác nhận.</span>';
+      checkoutStatus.textContent = 'Nội dung đơn đã sẵn sàng. Sao chép rồi gửi qua Zalo để shop xác nhận.';
+    }
+
+    handoff.hidden = false;
+  } catch (error) {
+    resultBox.innerHTML = '';
+    handoff.hidden = true;
+    checkoutStatus.textContent = error?.message || 'Không thể tạo đơn. Vui lòng thử lại.';
+  } finally {
+    orderSubmit.disabled = false;
+    orderSubmit.textContent = 'Xác nhận đặt hàng';
+  }
 });
 document.querySelector('#copy-order').addEventListener('click', async () => {
   const message = document.querySelector('#order-message').value;
