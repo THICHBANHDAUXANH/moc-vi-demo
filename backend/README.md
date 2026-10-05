@@ -31,3 +31,9 @@ Mở `http://127.0.0.1:8000/docs` để thử API.
 - `CORS_ORIGINS`: danh sách origin frontend, phân tách bằng dấu phẩy. Ví dụ: `https://thichbanhdauxanh.github.io,http://localhost:5500`.
 
 Không commit file `.env` hoặc secret thật lên Git.
+
+## Kết nối frontend
+
+Frontend nạp `config.js` trước `auth.js` và `checkout.js`. Khi chạy local, `config.js` tự trỏ API tới `http://127.0.0.1:8000`. Sau khi deploy backend, đặt URL HTTPS công khai vào `window.MOC_MIEN_API_BASE_URL` trong `config.js`.
+
+Kiểm tra backend sau deploy bằng `GET /api/health`; kết quả mong đợi là `{"status":"ok"}`.
