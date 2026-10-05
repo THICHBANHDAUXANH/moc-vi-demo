@@ -38,7 +38,7 @@ def ensure_catalog(db: Session) -> None:
                 Product(
                     name=item["name"],
                     sku=item["sku"],
-                    price=float(item["price"]),
+                    price=int(item["price"]),
                 )
             )
 
