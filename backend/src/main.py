@@ -1,4 +1,7 @@
+import os
+
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from src.db.database import engine, Base
 from src.auth.router import router as auth_router
@@ -9,6 +12,29 @@ from src.orders.router import router as orders_router
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="API Mộc Miên")
+
+default_cors_origins = ",".join(
+    [
+        "https://thichbanhdauxanh.github.io",
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ]
+)
+cors_origins = [
+    origin.strip()
+    for origin in os.getenv("CORS_ORIGINS", default_cors_origins).split(",")
+    if origin.strip()
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=cors_origins,
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(auth_router)
 app.include_router(orders_router)
