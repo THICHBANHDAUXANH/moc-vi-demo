@@ -9,6 +9,5 @@
     return;
   }
 
-  // Public backend URL is injected here after deployment.
-  window.MOC_MIEN_API_BASE_URL = '';
+  window.MOC_MIEN_API_BASE_URL = 'https://moc-vien-api.onrender.com';
 })();
