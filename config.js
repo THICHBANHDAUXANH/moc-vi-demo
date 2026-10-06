@@ -9,5 +9,5 @@
     return;
   }
 
-  window.MOC_MIEN_API_BASE_URL = 'https://moc-vien-api.onrender.com';
+  window.MOC_MIEN_API_BASE_URL = 'https://moc-vi-demo.onrender.com';
 })();
