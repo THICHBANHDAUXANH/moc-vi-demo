@@ -15,6 +15,13 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="API Mộc Miên")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/api/health", tags=["System"])
 def health(db: Session = Depends(get_db)):
@@ -35,14 +42,6 @@ cors_origins = [
     for origin in os.getenv("CORS_ORIGINS", default_cors_origins).split(",")
     if origin.strip()
 ]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 app.include_router(auth_router)
 app.include_router(orders_router)
