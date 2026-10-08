@@ -45,4 +45,6 @@ Không cần thêm cột `variant` vào bảng `products`. Mỗi quy cách là m
 
 Danh mục bootstrap cho môi trường dev nằm ở `backend/src/orders/catalog.py`. Nếu SKU đã tồn tại trong database, giá trong database là nguồn sự thật và không bị frontend ghi đè.
 
+Giá cacao Đắk Lắk gồm hai dòng Thường (`CACAO-DL-T-*`) và Cao cấp (`CACAO-DL-CC-*`); cacao Gia Lai dùng `CACAO-GL-*`. Đơn có cacao Đắk Lắk cộng phí ship 23.000đ nếu tổng khối lượng cacao Đắk Lắk dưới 3 kg, miễn phí từ 3 kg. `total_amount` và số tiền thanh toán đã gồm khoản này; response có `shipping_fee`. Phí vận chuyển của mặt hàng khác vẫn do shop xác nhận riêng.
+
 `note` được lưu riêng trong bảng `order_notes` để không sửa file model do Sơn đang phụ trách.

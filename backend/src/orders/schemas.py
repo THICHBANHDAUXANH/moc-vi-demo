@@ -38,6 +38,7 @@ class PaymentResponse(BaseModel):
 class OrderResponse(BaseModel):
     id: int
     total_amount: int
+    shipping_fee: int = 0
     status: str
     payment_method: str
     created_at: datetime
