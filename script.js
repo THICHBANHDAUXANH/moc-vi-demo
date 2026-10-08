@@ -293,12 +293,21 @@ orderForm.addEventListener('submit', async event => {
       const payment = order.payment || order.payment_info || {};
       const total = order.total ?? order.total_amount;
       const serverTotal = Number(total);
+      // 1. Đổi lại câu thông báo
       const bankText = paymentMethod === 'bank_transfer'
-        ? (payment.qr_url || payment.checkout_url
-            ? 'Thông tin thanh toán đã được máy chủ tạo. Mở liên kết/QR được cung cấp sau khi backend hoàn thiện.'
-            : 'Đơn đã tạo. Chờ thông tin chuyển khoản được máy chủ xác nhận.')
+        ? 'Đơn đã tạo. Vui lòng quét mã QR bên dưới để chuyển khoản.'
         : 'Đơn đã tạo với phương thức COD.';
-      resultBox.innerHTML = `<strong>Đơn hàng đã được tạo${orderId ? ` · #${escapeHtml(orderId)}` : ''}</strong><span>${Number.isFinite(serverTotal) ? `Tổng tiền xác nhận: ${formatPrice(serverTotal)}. ` : ''}${bankText}</span>`;
+        
+      // 2. Tạo khối HTML chứa ảnh QR (Chỉ tạo ra nếu khách chọn chuyển khoản)
+      const qrCodeHtml = paymentMethod === 'bank_transfer' 
+        ? `<div style="text-align: center; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ccc;">
+             <p style="font-weight: 600; color: #1a4a38; margin-bottom: 10px;">Quét mã để thanh toán</p>
+             <img src="./qr-thanh-toan.png" alt="QR Thanh toán" style="width: 200px; height: 200px; border-radius: 8px; border: 1px solid #ddd; padding: 5px; background: #fff;">
+           </div>` 
+        : '';
+
+      // 3. Gắn thông báo và ảnh QR vào giao diện (nối biến qrCodeHtml vào cuối cùng)
+      resultBox.innerHTML = `<strong>Đơn hàng đã được tạo${orderId ? ` · #${escapeHtml(orderId)}` : ''}</strong><span>${Number.isFinite(serverTotal) ? `Tổng tiền xác nhận: ${formatPrice(serverTotal)}. ` : ''}${bankText}</span>${qrCodeHtml}`;
       checkoutStatus.textContent = 'Đã tạo đơn thành công.';
     } else {
       resultBox.innerHTML = hasCacao
