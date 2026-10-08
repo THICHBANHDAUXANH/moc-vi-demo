@@ -33,7 +33,7 @@ function header() {
   return `<div class="announcement">Mộc Miên · Chè, cacao &amp; cà phê <span>✦</span> Đặt hàng qua Zalo ${shopPhone}</div>
     <header class="header">
       <button class="mobile-menu icon-button" id="menu-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav">${icon.menu}</button>
-      <a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên"></a>
+      <a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên" decoding="async"></a>
       <nav id="main-nav" class="nav" aria-label="Danh mục chính">${Object.entries(categories).map(([key, item]) => `<a href="${item.url}" ${page === key || currentProduct?.category === key ? 'aria-current="page"' : ''}>${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></nav>
       <div class="header-actions">
         <button class="account-trigger icon-button" id="account-toggle" aria-label="Đăng nhập hoặc đăng ký" aria-haspopup="dialog">${icon.user}<span id="account-label">Đăng nhập</span></button>
@@ -43,7 +43,7 @@ function header() {
 }
 
 function footer() {
-  return `<footer id="footer"><div><a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên"></a><p>Chè, cacao và cà phê cho những phút giây an yên.</p></div><div><strong>Khám phá</strong>${Object.values(categories).map(item => `<a href="${item.url}">${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></div><div><strong>Liên hệ đặt hàng</strong><a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener">Nhắn Mộc Miên trên Zalo</a><a href="tel:${shopPhone}">${shopPhone}</a><span>Thanh toán COD hoặc chuyển khoản khi xác nhận đơn.</span></div><small>© 2026 Mộc Miên</small></footer>`;
+  return `<footer id="footer"><div><a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên" decoding="async"></a><p>Chè, cacao và cà phê cho những phút giây an yên.</p></div><div><strong>Khám phá</strong>${Object.values(categories).map(item => `<a href="${item.url}">${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></div><div><strong>Liên hệ đặt hàng</strong><a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener">Nhắn Mộc Miên trên Zalo</a><a href="tel:${shopPhone}">${shopPhone}</a><span>Thanh toán COD hoặc chuyển khoản khi xác nhận đơn.</span></div><small>© 2026 Mộc Miên</small></footer>`;
 }
 
 function cartMarkup() {
@@ -51,19 +51,37 @@ function cartMarkup() {
 }
 
 function cacaoFeature() {
-  return `<div class="category-tile cacao-tile"><div class="cacao-region-pair"><a href="${productUrl(productById['cacao-gia-lai'])}" aria-label="Xem Cacao Gia Lai"><img src="./products/cacao-gia-lai-demo.png" alt="Hũ cacao Gia Lai"><span>GIA LAI</span></a><a href="${productUrl(productById['cacao-daklak-thuong'])}" aria-label="Xem Cacao Đắk Lắk"><img src="./products/cacao-daklak-thuong-demo.png?v=2" alt="Hũ cacao Đắk Lắk loại Thường"><span>ĐẮK LẮK</span></a></div><div class="category-copy"><span>02 / HAI VÙNG CACAO</span><h3><a href="./cacao.html">Cacao</a></h3><p>Gia Lai · Đắk Lắk Thường &amp; Cao cấp</p><a class="category-more" href="./cacao.html" aria-label="Xem tất cả cacao">↗</a></div></div>`;
+  return \`<div class="category-tile cacao-tile"><div class="cacao-region-pair"><a href="\${productUrl(productById['cacao-gia-lai'])}" aria-label="Xem Cacao Gia Lai"><img src="./products/cacao-gia-lai-demo.png" alt="Hũ cacao Gia Lai" loading="lazy" decoding="async" fetchpriority="low"><span>GIA LAI</span></a><a href="\${productUrl(productById['cacao-daklak-thuong'])}" aria-label="Xem Cacao Đắk Lắk"><img src="./products/cacao-daklak-thuong-demo.png?v=2" alt="Hũ cacao Đắk Lắk loại Thường" loading="lazy" decoding="async" fetchpriority="low"><span>ĐẮK LẮK</span></a></div><div class="category-copy"><span>02 / HAI VÙNG CACAO</span><h3><a href="./cacao.html">Cacao</a></h3><p>Gia Lai · Đắk Lắk Thường &amp; Cao cấp</p><a class="category-more" href="./cacao.html" aria-label="Xem tất cả cacao">↗</a></div></div>\`;
 }
 
 function home() {
-  return `<section class="hero" id="home"><div class="hero-copy"><span class="eyebrow">— TỪ ĐẤT VIỆT, ĐẾN GÓC BÌNH YÊN</span><h1>Chút mộc mạc<br><em>trong từng vị.</em></h1><p>Chè thơm, cacao đậm và cà phê cho những phút giây chậm lại.</p><a href="#collections" class="primary-link">Khám phá danh mục <span aria-hidden="true">→</span></a><div class="hero-foot"><span>01 / 03</span><div></div><span>CHÈ · CÀ PHÊ · CACAO</span></div></div><div class="hero-art" aria-label="Ảnh danh mục chè, cà phê và cacao"><div class="hero-slides"><a class="hero-slide is-active" href="./che.html" aria-label="Khám phá chè"><img src="./products/che-thai-nguyen-photo-demo.png" alt="Chè Thái Nguyên"></a><a class="hero-slide" href="./caphe.html" aria-label="Khám phá cà phê"><img src="./products/caphe-photo-demo.png?v=2" alt="Cà phê LA’CAPHE Gia Lai"></a><a class="hero-slide" href="./cacao.html" aria-label="Khám phá cacao"><span class="cacao-hero-pair"><img src="./products/cacao-gia-lai-demo.png" alt="Cacao Gia Lai"><img src="./products/cacao-daklak-thuong-demo.png?v=2" alt="Cacao Đắk Lắk"></span></a></div><div class="hero-slide-caption"><span id="hero-slide-count">01 / 03</span><strong id="hero-slide-name">Chè Việt</strong><span>Khám phá sản phẩm</span></div><div class="hero-slide-controls" aria-label="Điều khiển ảnh danh mục"><button type="button" class="hero-arrow" id="hero-prev" aria-label="Ảnh trước">‹</button><div class="hero-dots"><button type="button" class="hero-dot is-active" data-slide="0" aria-label="Xem ảnh chè" aria-current="true"></button><button type="button" class="hero-dot" data-slide="1" aria-label="Xem ảnh cà phê"></button><button type="button" class="hero-dot" data-slide="2" aria-label="Xem ảnh cacao"></button></div><button type="button" class="hero-arrow" id="hero-next" aria-label="Ảnh tiếp theo">›</button></div></div></section>
-    <section class="collection collection-landing" id="collections"><div class="section-heading"><div><span class="eyebrow">BA DÒNG SẢN PHẨM</span><h2>Chọn <em>hương vị của bạn</em></h2></div><p>Khám phá từng danh mục và chọn quy cách phù hợp trên trang sản phẩm.</p></div><div class="category-grid"><a class="category-tile tea-tile" href="./che.html"><div class="category-art"><img src="./products/che-thai-nguyen-photo-demo.png" alt="Chè Thái Nguyên"></div><div class="category-copy"><span>01 / CHÈ VIỆT</span><h3>Chè</h3><p>Trà Trung Du và chè Thái Nguyên</p><b aria-hidden="true">↗</b></div></a>${cacaoFeature()}<a class="category-tile coffee-tile" href="./caphe.html"><div class="category-art"><img src="./products/caphe-photo-demo.png?v=2" alt="Cà phê xay LA’CAPHE Gia Lai"></div><div class="category-copy"><span>03 / CÀ PHÊ</span><h3>Cà phê</h3><p>Cà phê xay LA’CAPHE Gia Lai</p><b aria-hidden="true">↗</b></div></a></div></section>
-    <section class="story" id="story"><div class="story-art"><span class="story-sun"></span><span class="story-hill hill-one"></span><span class="story-hill hill-two"></span><span class="story-word">mộc miên</span></div><div class="story-copy"><span class="eyebrow">CÂU CHUYỆN CỦA CHÚNG MÌNH</span><h2>Từ vùng đất lành,<br>đến <em>tách trà của bạn.</em></h2><p>Chúng mình tin một thức uống ngon bắt đầu từ nguyên liệu tốt và sự trân trọng dành cho người làm ra nó. Mộc Miên là lời mời dành một khoảng lặng nhỏ trong ngày để thưởng thức chè, cacao và cà phê Việt.</p><a href="./che.html" class="text-link">Khám phá chè Việt <span aria-hidden="true">→</span></a></div></section>`;
+  return \`<section class="hero" id="home"><div class="hero-copy"><span class="eyebrow">— TỪ ĐẤT VIỆT, ĐẾN GÓC BÌNH YÊN</span><h1>Chút mộc mạc<br><em>trong từng vị.</em></h1><p>Chè thơm, cacao đậm và cà phê cho những phút giây chậm lại.</p><a href="#collections" class="primary-link">Khám phá danh mục <span aria-hidden="true">→</span></a><div class="hero-foot"><span>01 / 03</span><div></div><span>CHÈ · CÀ PHÊ · CACAO</span></div></div><div class="hero-art" aria-label="Ảnh danh mục chè, cà phê và cacao"><div class="hero-slides"><a class="hero-slide is-active" href="./che.html" aria-label="Khám phá chè"><img src="./products/che-thai-nguyen-photo-demo.png" alt="Chè Thái Nguyên" loading="eager" decoding="async" fetchpriority="high"></a><a class="hero-slide" href="./caphe.html" aria-label="Khám phá cà phê"><img data-src="./products/caphe-photo-demo.png?v=2" alt="Cà phê LA’CAPHE Gia Lai" decoding="async"></a><a class="hero-slide" href="./cacao.html" aria-label="Khám phá cacao"><span class="cacao-hero-pair"><img data-src="./products/cacao-gia-lai-demo.png" alt="Cacao Gia Lai" decoding="async"><img data-src="./products/cacao-daklak-thuong-demo.png?v=2" alt="Cacao Đắk Lắk" decoding="async"></span></a></div><div class="hero-slide-caption"><span id="hero-slide-count">01 / 03</span><strong id="hero-slide-name">Chè Việt</strong><span>Khám phá sản phẩm</span></div><div class="hero-slide-controls" aria-label="Điều khiển ảnh danh mục"><button type="button" class="hero-arrow" id="hero-prev" aria-label="Ảnh trước">‹</button><div class="hero-dots"><button type="button" class="hero-dot is-active" data-slide="0" aria-label="Xem ảnh chè" aria-current="true"></button><button type="button" class="hero-dot" data-slide="1" aria-label="Xem ảnh cà phê"></button><button type="button" class="hero-dot" data-slide="2" aria-label="Xem ảnh cacao"></button></div><button type="button" class="hero-arrow" id="hero-next" aria-label="Ảnh tiếp theo">›</button></div></div></section>
+    <section class="collection collection-landing" id="collections"><div class="section-heading"><div><span class="eyebrow">BA DÒNG SẢN PHẨM</span><h2>Chọn <em>hương vị của bạn</em></h2></div><p>Khám phá từng danh mục và chọn quy cách phù hợp trên trang sản phẩm.</p></div><div class="category-grid"><a class="category-tile tea-tile" href="./che.html"><div class="category-art"><img src="./products/che-thai-nguyen-photo-demo.png" alt="Chè Thái Nguyên" loading="lazy" decoding="async" fetchpriority="low"></div><div class="category-copy"><span>01 / CHÈ VIỆT</span><h3>Chè</h3><p>Trà Trung Du và chè Thái Nguyên</p><b aria-hidden="true">↗</b></div></a>\${cacaoFeature()}<a class="category-tile coffee-tile" href="./caphe.html"><div class="category-art"><img src="./products/caphe-photo-demo.png?v=2" alt="Cà phê xay LA’CAPHE Gia Lai" loading="lazy" decoding="async" fetchpriority="low"></div><div class="category-copy"><span>03 / CÀ PHÊ</span><h3>Cà phê</h3><p>Cà phê xay LA’CAPHE Gia Lai</p><b aria-hidden="true">↗</b></div></a></div></section>
+    <section class="story-shell" id="story" aria-labelledby="story-title">
+      <div class="story-heading"><div><span class="eyebrow">CÂU CHUYỆN MỘC MIÊN</span><h2 id="story-title">Ba vùng vị, <em>ba câu chuyện.</em></h2></div><p>Trượt để khám phá câu chuyện của chè, cacao và cà phê Việt cùng những điểm nổi bật tự nhiên của từng thức uống.</p></div>
+      <div class="story-slider">
+        <article class="story-panel is-active" data-story-slide="0" aria-hidden="false">
+          <div class="story-media"><img src="./products/che-thai-nguyen-photo-demo.png" alt="Chè Thái Nguyên Mộc Miên" loading="lazy" decoding="async" fetchpriority="low"><span class="story-number">01 / CHÈ</span></div>
+          <div class="story-copy"><span class="eyebrow">CÂU CHUYỆN CỦA CHÈ</span><h2>Từ vùng đồi đến <em>tách trà bình yên.</em></h2><p>Những búp chè mang hương thơm thanh và vị dịu, gợi lại nhịp sống chậm của vùng trung du. Mộc Miên muốn giữ nét mộc mạc ấy trong một tách trà dễ uống mỗi ngày.</p><ul class="story-benefits"><li><strong>Thanh vị</strong><span>Dễ thưởng thức trong nhiều thời điểm trong ngày.</span></li><li><strong>Chất chống oxy hóa tự nhiên</strong><span>Trà tự nhiên chứa các hợp chất polyphenol.</span></li><li><strong>Một khoảng nghỉ nhẹ nhàng</strong><span>Phù hợp cho thói quen thưởng trà và thư giãn.</span></li></ul><a href="./che.html" class="text-link">Khám phá chè Việt <span aria-hidden="true">→</span></a></div>
+        </article>
+        <article class="story-panel" data-story-slide="1" aria-hidden="true">
+          <div class="story-media"><img data-src="./products/cacao-gia-lai-demo.png" alt="Cacao Mộc Miên" decoding="async"><span class="story-number">02 / CACAO</span></div>
+          <div class="story-copy"><span class="eyebrow">CÂU CHUYỆN CỦA CACAO</span><h2>Từ nắng gió cao nguyên đến <em>ly cacao đậm vị.</em></h2><p>Cacao mang nét ấm áp rất riêng: đậm, thơm và tròn vị. Từ nguồn nguyên liệu Việt, Mộc Miên giữ sự cân bằng để cacao có thể đi cùng buổi sáng cần năng lượng hay buổi tối muốn chậm lại.</p><ul class="story-benefits"><li><strong>Đậm vị, linh hoạt</strong><span>Dùng nóng, lạnh hoặc kết hợp trong nhiều công thức.</span></li><li><strong>Hợp chất chống oxy hóa tự nhiên</strong><span>Cacao tự nhiên chứa flavanol và polyphenol.</span></li><li><strong>Khoảnh khắc dễ chịu</strong><span>Hương cacao phù hợp cho một thức uống ấm và thư thái.</span></li></ul><a href="./cacao.html" class="text-link">Khám phá cacao <span aria-hidden="true">→</span></a></div>
+        </article>
+        <article class="story-panel" data-story-slide="2" aria-hidden="true">
+          <div class="story-media"><img data-src="./products/coffee-cherries-story-demo.png" alt="Cà phê Gia Lai Mộc Miên" decoding="async"><span class="story-number">03 / CÀ PHÊ</span></div>
+          <div class="story-copy"><span class="eyebrow">CÂU CHUYỆN CỦA CÀ PHÊ</span><h2>Từ cao nguyên Gia Lai đến <em>tách cà phê đậm hương.</em></h2><p>Cà phê Mộc Miên mang tinh thần của cao nguyên: rõ hương, đậm vị và đầy sức sống. Một tách cà phê chỉn chu cho những buổi sáng cần bắt nhịp và những giờ làm việc cần tập trung.</p><ul class="story-benefits"><li><strong>Hương thơm rõ nét</strong><span>Phong vị đậm, hợp gu cà phê truyền thống.</span></li><li><strong>Caffeine tự nhiên</strong><span>Có thể hỗ trợ sự tỉnh táo khi dùng ở mức phù hợp.</span></li><li><strong>Nghi thức khởi đầu ngày mới</strong><span>Một khoảng thời gian nhỏ để tập trung trước ngày dài.</span></li></ul><a href="./caphe.html" class="text-link">Khám phá cà phê <span aria-hidden="true">→</span></a></div>
+        </article>
+        <div class="story-controls" aria-label="Điều khiển câu chuyện"><button type="button" class="story-arrow" id="story-prev" aria-label="Câu chuyện trước">‹</button><div class="story-dots"><button type="button" class="story-dot is-active" data-story-target="0" aria-label="Câu chuyện chè" aria-current="true"></button><button type="button" class="story-dot" data-story-target="1" aria-label="Câu chuyện cacao"></button><button type="button" class="story-dot" data-story-target="2" aria-label="Câu chuyện cà phê"></button></div><button type="button" class="story-arrow" id="story-next" aria-label="Câu chuyện tiếp theo">›</button></div>
+      </div>
+      <p class="story-health-note">Thông tin về thành phần và sự tỉnh táo chỉ mang tính tham khảo chung, không thay thế tư vấn sức khỏe.</p>
+    </section>\`;
 }
 
 function productCard(product, index) {
   const tone = product.category === 'caphe' ? 'coffee-tone' : `tone-${index % 4}`;
   const fromPrice = Math.min(...Object.values(product.prices));
-  return `<article class="catalog-card"><a href="${productUrl(product)}" aria-label="Xem ${product.name}"><div class="catalog-image ${tone}"><img src="${product.image}" alt="Hình tham khảo ${product.name}"></div><div class="catalog-meta"><span>${product.type.toUpperCase()}</span><span>TỪ ${formatPrice(fromPrice)}</span></div><h2>${product.name}</h2><p>Xem quy cách và giá <span aria-hidden="true">↗</span></p></a></article>`;
+  return `<article class="catalog-card"><a href="${productUrl(product)}" aria-label="Xem ${product.name}"><div class="catalog-image ${tone}"><img src="${product.image}" alt="Hình tham khảo ${product.name}" loading="lazy" decoding="async" fetchpriority="low"></div><div class="catalog-meta"><span>${product.type.toUpperCase()}</span><span>TỪ ${formatPrice(fromPrice)}</span></div><h2>${product.name}</h2><p>Xem quy cách và giá <span aria-hidden="true">↗</span></p></a></article>`;
 }
 
 function category(category) {
@@ -78,7 +96,7 @@ function detail(product) {
   const sizes = product.category === 'che' ? [['100 g', '1 lạng'], ['200 g', '2 lạng'], ['1 kg', '1 cân']] : [['200 g', '2 lạng'], ['500 g', '5 lạng'], ['1 kg', '1 cân']];
   const startingPrice = Math.min(...Object.values(product.prices));
   return `<nav class="breadcrumbs" aria-label="Đường dẫn"><a href="./index.html">Trang chủ</a><span>/</span><a href="${categoryUrl(product.category)}">${categoryName(product.category)}</a><span>/</span><span aria-current="page">${product.name}</span></nav>
-    <section class="detail-layout"><div class="detail-visual"><img src="${product.image}" alt="Hình tham khảo ${product.name}"></div><div class="detail-info"><span class="eyebrow">MỘC MIÊN / ${categoryName(product.category).toUpperCase()}</span><h1>${product.name}</h1><p class="detail-subtitle">${product.type} Việt${product.packaging ? ` · ${product.packaging}` : ''}</p><p class="detail-price" id="detail-price">Từ ${formatPrice(startingPrice)}</p><div class="detail-divider"></div><div class="variant-block"><div class="variant-heading"><strong>Chọn quy cách</strong><span id="selected-size">Chưa chọn</span></div><div class="variant-options" role="group" aria-label="Quy cách đóng gói">${sizes.map(([weight, label]) => `<button type="button" data-size="${weight}" aria-pressed="false">${weight}<small>${label} · ${formatPrice(product.prices[weight])}</small></button>`).join('')}</div></div><button class="detail-add" id="add-to-cart" disabled>Chọn quy cách để thêm vào giỏ hàng</button><p class="detail-note">${product.id.startsWith('cacao-daklak-') ? 'Ship cacao Đắk Lắk 23.000đ; miễn phí khi mua từ 3 kg cacao Đắk Lắk trong cùng đơn.' : 'Giá chưa gồm phí vận chuyển. Shop sẽ báo phí ship để bạn xác nhận trước khi gửi hàng.'}</p><div class="detail-facts"><details open><summary>Thông tin sản phẩm</summary><p>${product.name} · ${sizes.map(([weight]) => weight).join(', ')}. Hình ảnh bao bì mang tính tham khảo cho từng quy cách.</p></details><details><summary>Giao hàng &amp; thanh toán</summary><p>Đặt hàng qua Zalo ${shopPhone}. Chọn thanh toán khi nhận hàng (COD) hoặc chuyển khoản sau khi shop xác nhận đơn và phí giao hàng.</p></details></div></div></section><section class="detail-more"><div><span class="eyebrow">KHÁM PHÁ THÊM</span><h2>${categoryName(product.category)} Mộc Miên</h2></div><a href="${categoryUrl(product.category)}" class="text-link">Xem toàn bộ danh mục <span aria-hidden="true">→</span></a></section>`;
+    <section class="detail-layout"><div class="detail-visual"><img src="${product.image}" alt="Hình tham khảo ${product.name}" loading="eager" decoding="async" fetchpriority="high"></div><div class="detail-info"><span class="eyebrow">MỘC MIÊN / ${categoryName(product.category).toUpperCase()}</span><h1>${product.name}</h1><p class="detail-subtitle">${product.type} Việt${product.packaging ? ` · ${product.packaging}` : ''}</p><p class="detail-price" id="detail-price">Từ ${formatPrice(startingPrice)}</p><div class="detail-divider"></div><div class="variant-block"><div class="variant-heading"><strong>Chọn quy cách</strong><span id="selected-size">Chưa chọn</span></div><div class="variant-options" role="group" aria-label="Quy cách đóng gói">${sizes.map(([weight, label]) => `<button type="button" data-size="${weight}" aria-pressed="false">${weight}<small>${label} · ${formatPrice(product.prices[weight])}</small></button>`).join('')}</div></div><button class="detail-add" id="add-to-cart" disabled>Chọn quy cách để thêm vào giỏ hàng</button><p class="detail-note">${product.id.startsWith('cacao-daklak-') ? 'Ship cacao Đắk Lắk 23.000đ; miễn phí khi mua từ 3 kg cacao Đắk Lắk trong cùng đơn.' : 'Giá chưa gồm phí vận chuyển. Shop sẽ báo phí ship để bạn xác nhận trước khi gửi hàng.'}</p><div class="detail-facts"><details open><summary>Thông tin sản phẩm</summary><p>${product.name} · ${sizes.map(([weight]) => weight).join(', ')}. Hình ảnh bao bì mang tính tham khảo cho từng quy cách.</p></details><details><summary>Giao hàng &amp; thanh toán</summary><p>Đặt hàng qua Zalo ${shopPhone}. Chọn thanh toán khi nhận hàng (COD) hoặc chuyển khoản sau khi shop xác nhận đơn và phí giao hàng.</p></details></div></div></section><section class="detail-more"><div><span class="eyebrow">KHÁM PHÁ THÊM</span><h2>${categoryName(product.category)} Mộc Miên</h2></div><a href="${categoryUrl(product.category)}" class="text-link">Xem toàn bộ danh mục <span aria-hidden="true">→</span></a></section>`;
 }
 
 const content = page === 'home' ? home() : categories[page] ? category(page) : detail(currentProduct);
@@ -93,8 +111,15 @@ if (page === 'home') {
   const motionReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let activeSlide = 0;
   let slideTimer;
+  const loadDeferredImages = root => {
+    root.querySelectorAll('img[data-src]').forEach(img => {
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+    });
+  };
   const showSlide = index => {
     activeSlide = (index + slides.length) % slides.length;
+    loadDeferredImages(slides[activeSlide]);
     slides.forEach((slide, position) => {
       const active = position === activeSlide;
       slide.classList.toggle('is-active', active);
@@ -123,6 +148,38 @@ if (page === 'home') {
   document.addEventListener('visibilitychange', startSlides);
   showSlide(0);
   startSlides();
+
+  const storyRoot = document.querySelector('#story');
+  const storyPanels = [...storyRoot.querySelectorAll('[data-story-slide]')];
+  const storyDots = [...storyRoot.querySelectorAll('[data-story-target]')];
+  let activeStory = 0;
+  let touchStartX = 0;
+
+  const showStory = index => {
+    activeStory = (index + storyPanels.length) % storyPanels.length;
+    storyPanels.forEach((panel, position) => {
+      const active = position === activeStory;
+      panel.classList.toggle('is-active', active);
+      panel.setAttribute('aria-hidden', String(!active));
+      if (active) loadDeferredImages(panel);
+    });
+    storyDots.forEach((dot, position) => {
+      const active = position === activeStory;
+      dot.classList.toggle('is-active', active);
+      if (active) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
+    });
+  };
+
+  document.querySelector('#story-prev').addEventListener('click', () => showStory(activeStory - 1));
+  document.querySelector('#story-next').addEventListener('click', () => showStory(activeStory + 1));
+  storyDots.forEach((dot, index) => dot.addEventListener('click', () => showStory(index)));
+  storyRoot.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0]?.clientX || 0; }, { passive: true });
+  storyRoot.addEventListener('touchend', event => {
+    const delta = (event.changedTouches[0]?.clientX || 0) - touchStartX;
+    if (Math.abs(delta) > 45) showStory(activeStory + (delta < 0 ? 1 : -1));
+  }, { passive: true });
+  showStory(0);
 }
 
 const menu = document.querySelector('#main-nav');
@@ -149,7 +206,7 @@ const renderCart = () => {
   document.querySelector('#drawer-count').textContent = `(${itemCount})`;
   document.querySelector('#cart-items').innerHTML = cart.map((item, index) => {
     const product = productById[item.id];
-    return `<div class="cart-item"><img src="${product.image}" alt=""><div class="cart-item-info"><strong>${escapeHtml(product.name)}</strong><span>${item.size} · ${formatPrice(product.prices[item.size])}</span><div class="quantity-control"><button type="button" data-cart-action="decrease" data-index="${index}" aria-label="Giảm số lượng ${escapeHtml(product.name)}">−</button><span>${item.quantity}</span><button type="button" data-cart-action="increase" data-index="${index}" aria-label="Tăng số lượng ${escapeHtml(product.name)}">+</button></div><button type="button" class="remove-item" data-cart-action="remove" data-index="${index}">Xóa</button></div><strong class="cart-line-total">${formatPrice(product.prices[item.size] * item.quantity)}</strong></div>`;
+    return `<div class="cart-item"><img src="${product.image}" alt="" loading="lazy" decoding="async"><div class="cart-item-info"><strong>${escapeHtml(product.name)}</strong><span>${item.size} · ${formatPrice(product.prices[item.size])}</span><div class="quantity-control"><button type="button" data-cart-action="decrease" data-index="${index}" aria-label="Giảm số lượng ${escapeHtml(product.name)}">−</button><span>${item.quantity}</span><button type="button" data-cart-action="increase" data-index="${index}" aria-label="Tăng số lượng ${escapeHtml(product.name)}">+</button></div><button type="button" class="remove-item" data-cart-action="remove" data-index="${index}">Xóa</button></div><strong class="cart-line-total">${formatPrice(product.prices[item.size] * item.quantity)}</strong></div>`;
   }).join('');
   document.querySelector('#empty-cart').hidden = cart.length > 0;
   document.querySelector('#cart-checkout').hidden = cart.length === 0;
