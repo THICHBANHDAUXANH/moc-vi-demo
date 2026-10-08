@@ -11,7 +11,6 @@ from src.payments.service import create_pending_payment
 
 
 VND = Decimal("1")
-DAKLAK_WEIGHTS = {"200G": 200, "500G": 500, "1KG": 1000}
 
 
 def _vnd(value: object) -> Decimal:
@@ -47,14 +46,6 @@ def create_order(db: Session, payload: OrderCreate, user_id: int | None = None) 
         line_total = unit_price * quantity
         total += line_total
         lines.append((product, quantity, unit_price, line_total))
-
-    daklak_grams = sum(
-        DAKLAK_WEIGHTS.get(sku.rsplit("-", 1)[-1], 0) * quantity
-        for sku, quantity in quantities.items()
-        if sku.startswith(("CACAO-DL-T-", "CACAO-DL-CC-"))
-    )
-    shipping_fee = 23000 if 0 < daklak_grams < 3000 else 0
-    total += shipping_fee
 
     order = Order(
         user_id=user_id,
@@ -93,7 +84,6 @@ def create_order(db: Session, payload: OrderCreate, user_id: int | None = None) 
     return {
         "id": order.id,
         "total_amount": int(total),
-        "shipping_fee": shipping_fee,
         "status": order.status,
         "payment_method": order.payment_method,
         "created_at": order.created_at,

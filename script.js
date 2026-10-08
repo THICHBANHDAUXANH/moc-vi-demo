@@ -159,7 +159,7 @@ const renderCart = () => {
   document.querySelector('#checkout-status').textContent = '';
 };
 const closeCart = () => { overlay.hidden = true; document.body.style.overflow = ''; document.querySelector('#cart-toggle').focus(); };
-document.querySelector('#cart-toggle').addEventListener('click', () => { renderCart(); overlay.hidden = false; document.body.style.overflow = 'hidden'; document.querySelector('#cart-close').focus(); });
+document.querySelector('#cart-toggle').addEventListener('click', () => { renderCart(); updatePaymentHelp(); overlay.hidden = false; document.body.style.overflow = 'hidden'; document.querySelector('#cart-close').focus(); });
 document.querySelector('#cart-close').addEventListener('click', closeCart);
 overlay.addEventListener('click', event => { if (event.target === overlay) closeCart(); });
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && !overlay.hidden) closeCart(); });
@@ -173,7 +173,7 @@ document.querySelector('#cart-items').addEventListener('click', event => {
     cart[index].quantity -= 1;
     if (cart[index].quantity === 0) cart.splice(index, 1);
   }
-  saveCart(); renderCart();
+  saveCart(); renderCart(); updatePaymentHelp();
 });
 renderCart();
 
@@ -183,7 +183,9 @@ const checkoutStatus = document.querySelector('#checkout-status');
 const orderSubmit = orderForm.querySelector('.order-submit');
 const updatePaymentHelp = () => {
   const method = new FormData(orderForm).get('payment') || 'cod';
-  paymentHelp.textContent = window.MocMienCheckout?.paymentHelp(method) || '';
+  paymentHelp.textContent = cart.some(item => item.id.startsWith('cacao-'))
+    ? 'Đơn có cacao sẽ được gửi qua Zalo để shop xác nhận và hướng dẫn thanh toán.'
+    : window.MocMienCheckout?.paymentHelp(method) || '';
 };
 orderForm.addEventListener('input', () => {
   document.querySelector('#order-handoff').hidden = true;
@@ -217,14 +219,16 @@ orderForm.addEventListener('submit', async event => {
 
   const handoff = document.querySelector('#order-handoff');
   const resultBox = document.querySelector('#order-result');
+  const hasCacao = cart.some(item => item.id.startsWith('cacao-'));
   document.querySelector('#order-message').value = message;
   orderSubmit.disabled = true;
-  orderSubmit.textContent = 'Đang tạo đơn…';
-  checkoutStatus.textContent = 'Đang gửi thông tin đơn hàng…';
+  orderSubmit.textContent = hasCacao ? 'Đang chuẩn bị đơn…' : 'Đang tạo đơn…';
+  checkoutStatus.textContent = hasCacao ? 'Đang chuẩn bị nội dung gửi shop…' : 'Đang gửi thông tin đơn hàng…';
 
   try {
-    const payload = window.MocMienCheckout.buildOrderPayload({ cart, formData: data, catalog: productById });
-    const result = await window.MocMienCheckout.createOrder(payload);
+    const result = hasCacao
+      ? { mode: 'manual', order: null }
+      : await window.MocMienCheckout.createOrder(window.MocMienCheckout.buildOrderPayload({ cart, formData: data, catalog: productById }));
 
     if (result.mode === 'api') {
       const order = result.order || {};
@@ -240,7 +244,9 @@ orderForm.addEventListener('submit', async event => {
       resultBox.innerHTML = `<strong>Đơn hàng đã được tạo${orderId ? ` · #${escapeHtml(orderId)}` : ''}</strong><span>${Number.isFinite(serverTotal) ? `Tổng tiền xác nhận: ${formatPrice(serverTotal)}. ` : ''}${bankText}</span>`;
       checkoutStatus.textContent = 'Đã tạo đơn thành công.';
     } else {
-      resultBox.innerHTML = '<strong>Chế độ demo</strong><span>Backend chưa được cấu hình trên GitHub Pages. Bạn vẫn có thể sao chép đơn và gửi qua Zalo để shop xác nhận.</span>';
+      resultBox.innerHTML = hasCacao
+        ? '<strong>Đơn cacao gửi qua Zalo</strong><span>Sao chép nội dung đơn để shop xác nhận sản phẩm, phí ship và thanh toán.</span>'
+        : '<strong>Chế độ demo</strong><span>Backend chưa được cấu hình. Bạn vẫn có thể sao chép đơn và gửi qua Zalo để shop xác nhận.</span>';
       checkoutStatus.textContent = 'Nội dung đơn đã sẵn sàng. Sao chép rồi gửi qua Zalo để shop xác nhận.';
     }
 
