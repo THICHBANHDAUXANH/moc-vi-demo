@@ -1,6 +1,6 @@
 const products = [
-  { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet-photo-demo.png', photo: true, prices: { '100 g': 99000, '200 g': 189000, '1 kg': 790000 }, skus: { '100 g': 'TRA-TD-DB-100G', '200 g': 'TRA-TD-DB-200G', '1 kg': 'TRA-TD-DB-1KG' } },
-  { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong-photo-demo.png', photo: true, prices: { '100 g': 89000, '200 g': 169000, '1 kg': 690000 }, skus: { '100 g': 'TRA-TD-TT-100G', '200 g': 'TRA-TD-TT-200G', '1 kg': 'TRA-TD-TT-1KG' } },
+  { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet-photo-demo.png', photo: true, prices: { '100 g': 79000, '200 g': 149000, '1 kg': 699000 }, skus: { '100 g': 'TRA-TD-DB-100G', '200 g': 'TRA-TD-DB-200G', '1 kg': 'TRA-TD-DB-1KG' } },
+  { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong-photo-demo.png', photo: true, prices: { '100 g': 69000, '200 g': 129000, '1 kg': 599000 }, skus: { '100 g': 'TRA-TD-TT-100G', '200 g': 'TRA-TD-TT-200G', '1 kg': 'TRA-TD-TT-1KG' } },
   { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen-photo-demo.png', photo: true, prices: { '100 g': 59000, '200 g': 109000, '1 kg': 349000 }, skus: { '100 g': 'CHE-TN-100G', '200 g': 'CHE-TN-200G', '1 kg': 'CHE-TN-1KG' } },
   { id: 'cacao-gia-lai', name: 'Cacao Gia Lai', category: 'cacao', type: 'Cacao', packaging: '', image: './products/cacao-gia-lai-demo.png', photo: true, prices: { '200 g': 129000, '500 g': 259000, '1 kg': 449000 }, skus: { '200 g': 'CACAO-GL-200G', '500 g': 'CACAO-GL-500G', '1 kg': 'CACAO-GL-1KG' } },
   { id: 'cacao-daklak-thuong', name: 'Cacao Đắk Lắk · Thường', category: 'cacao', type: 'Cacao', packaging: 'Thường', image: './products/cacao-daklak-thuong-demo.png?v=2', photo: true, prices: { '200 g': 69000, '500 g': 139000, '1 kg': 239000 }, skus: { '200 g': 'CACAO-DL-T-200G', '500 g': 'CACAO-DL-T-500G', '1 kg': 'CACAO-DL-T-1KG' } },
@@ -8,6 +8,7 @@ const products = [
   { id: 'ca-phe', name: 'Cà phê xay Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png?v=2', photo: true, prices: { '200 g': 99000, '500 g': 199000, '1 kg': 349000 }, skus: { '200 g': 'CAPHE-GL-200G', '500 g': 'CAPHE-GL-500G', '1 kg': 'CAPHE-GL-1KG' } },
 ];
 const productById = Object.fromEntries(products.map(product => [product.id, product]));
+const pausedTeaIds = new Set(['tra-trung-du-truyen-thong', 'tra-trung-du-dac-biet']);
 const page = document.body.dataset.page;
 const requestedProduct = new URLSearchParams(location.search).get('id');
 const currentProduct = productById[requestedProduct];
@@ -102,6 +103,9 @@ function detail(product) {
 const content = page === 'home' ? home() : categories[page] ? category(page) : detail(currentProduct);
 document.querySelector('#app').innerHTML = `${header()}<main>${content}</main>${footer()}${cartMarkup()}`;
 window.MocMienAuth?.init();
+if (page === 'product' && currentProduct && pausedTeaIds.has(currentProduct.id)) {
+  document.querySelector('.detail-note').innerHTML = `Loại trà này tạm chưa nhận đơn trên website. <a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener">Nhắn Mộc Miên qua Zalo</a> để hỏi mua.`;
+}
 if (page === 'product' && currentProduct?.photo) document.querySelector('.detail-visual').insertAdjacentHTML('beforeend', '<span class="photo-disclosure">Hình ảnh tham khảo · Bao bì có thể thay đổi</span>');
 if (page === 'home') {
   const hero = document.querySelector('.hero-art');
@@ -193,6 +197,11 @@ try {
   if (Array.isArray(stored)) cart = stored.filter(item => productById[item.id]?.prices?.[item.size] && Number.isInteger(item.quantity) && item.quantity > 0 && item.quantity <= 99);
 } catch { cart = []; }
 const overlay = document.querySelector('#cart-overlay');
+const teaOrderNotice = document.createElement('p');
+teaOrderNotice.className = 'checkout-hint tea-order-notice';
+teaOrderNotice.hidden = true;
+teaOrderNotice.innerHTML = `Giỏ có trà Trung Du. Tạm thời chưa thể đặt đơn này trên website. <a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener">Nhắn Mộc Miên qua Zalo</a> để hỏi mua, hoặc bỏ trà khỏi giỏ để đặt các sản phẩm khác.`;
+document.querySelector('#cart-summary').after(teaOrderNotice);
 const saveCart = () => { try { localStorage.setItem(storageKey, JSON.stringify(cart)); } catch { /* Keep the current cart in memory. */ } };
 const cartTotal = () => cart.reduce((sum, item) => sum + productById[item.id].prices[item.size] * item.quantity, 0);
 const sizeGrams = { '200 g': 200, '500 g': 500, '1 kg': 1000 };
@@ -212,6 +221,9 @@ const renderCart = () => {
   document.querySelector('#cart-checkout').hidden = cart.length === 0;
   const { grams, fee } = daklakShipping();
   document.querySelector('#cart-summary').innerHTML = `<span>Tạm tính (${itemCount} sản phẩm)</span><strong>${formatPrice(cartTotal())}</strong>${grams ? `<span>Ship cacao Đắk Lắk (${grams >= 3000 ? 'miễn từ 3 kg' : 'dưới 3 kg'})</span><strong>${fee ? formatPrice(fee) : 'Miễn phí'}</strong><span>Tổng tạm tính</span><strong>${formatPrice(cartTotal() + fee)}</strong>` : ''}`;
+  const hasPausedTea = cart.some(item => pausedTeaIds.has(item.id));
+  teaOrderNotice.hidden = !hasPausedTea;
+  document.querySelector('#order-form').hidden = hasPausedTea;
   document.querySelector('#order-handoff').hidden = true;
   document.querySelector('#checkout-status').textContent = '';
 };
@@ -252,7 +264,7 @@ updatePaymentHelp();
 
 orderForm.addEventListener('submit', async event => {
   event.preventDefault();
-  if (!cart.length || orderSubmit.disabled) return;
+  if (!cart.length || orderSubmit.disabled || cart.some(item => pausedTeaIds.has(item.id))) return;
 
   const data = new FormData(orderForm);
   const paymentMethod = data.get('payment') === 'bank_transfer' ? 'bank_transfer' : 'cod';

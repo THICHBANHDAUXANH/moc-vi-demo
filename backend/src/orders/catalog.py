@@ -7,12 +7,12 @@ from src.db.models import Product
 # Prices here are only bootstrap defaults for an empty development database.
 # Once a SKU exists, its database price remains authoritative.
 CATALOG = [
-    {"sku": "TRA-TD-DB-100G", "name": "Trà Trung Du đặc biệt · 100 g", "price": 99000},
-    {"sku": "TRA-TD-DB-200G", "name": "Trà Trung Du đặc biệt · 200 g", "price": 189000},
-    {"sku": "TRA-TD-DB-1KG", "name": "Trà Trung Du đặc biệt · 1 kg", "price": 790000},
-    {"sku": "TRA-TD-TT-100G", "name": "Trà Trung Du truyền thống · 100 g", "price": 89000},
-    {"sku": "TRA-TD-TT-200G", "name": "Trà Trung Du truyền thống · 200 g", "price": 169000},
-    {"sku": "TRA-TD-TT-1KG", "name": "Trà Trung Du truyền thống · 1 kg", "price": 690000},
+    {"sku": "TRA-TD-DB-100G", "name": "Trà Trung Du đặc biệt · 100 g", "price": 79000},
+    {"sku": "TRA-TD-DB-200G", "name": "Trà Trung Du đặc biệt · 200 g", "price": 149000},
+    {"sku": "TRA-TD-DB-1KG", "name": "Trà Trung Du đặc biệt · 1 kg", "price": 699000},
+    {"sku": "TRA-TD-TT-100G", "name": "Trà Trung Du truyền thống · 100 g", "price": 69000},
+    {"sku": "TRA-TD-TT-200G", "name": "Trà Trung Du truyền thống · 200 g", "price": 129000},
+    {"sku": "TRA-TD-TT-1KG", "name": "Trà Trung Du truyền thống · 1 kg", "price": 599000},
     {"sku": "CHE-TN-100G", "name": "Chè Thái Nguyên · 100 g", "price": 59000},
     {"sku": "CHE-TN-200G", "name": "Chè Thái Nguyên · 200 g", "price": 109000},
     {"sku": "CHE-TN-1KG", "name": "Chè Thái Nguyên · 1 kg", "price": 349000},

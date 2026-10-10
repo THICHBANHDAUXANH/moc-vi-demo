@@ -120,6 +120,8 @@
 .cart-checkout input,.cart-checkout textarea,.cart-checkout select{width:100%;border:1px solid #cbd4c8;border-radius:0;background:#fff;color:#213b30;padding:11px 12px;font:14px 'DM Sans',Arial,sans-serif}
 .cart-checkout textarea{resize:vertical}
 .checkout-hint,.order-handoff p{font-size:12px;line-height:1.6;color:#68766a;margin:0}
+.tea-order-notice{background:#f7f0e5;color:#5e492f;padding:14px 16px;margin:14px 0}
+.tea-order-notice a{color:#214d39;font-weight:700;text-decoration:underline}
 .order-submit,.zalo-checkout-link{display:block;width:100%;border:0;background:#214d39;color:#fff;padding:14px 18px;text-align:center;font-size:13px;font-weight:700}
 .order-submit:hover,.zalo-checkout-link:hover{background:#17382a}
 .checkout-status{min-height:20px;color:#214d39;font-size:12px;line-height:1.5;margin:0}
