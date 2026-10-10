@@ -19,9 +19,9 @@ CATALOG = [
     {"sku": "CACAO-DL-200G", "name": "Cacao Đắk Lắk · 200 g", "price": 129000},
     {"sku": "CACAO-DL-500G", "name": "Cacao Đắk Lắk · 500 g", "price": 259000},
     {"sku": "CACAO-DL-1KG", "name": "Cacao Đắk Lắk · 1 kg", "price": 449000},
-    {"sku": "CAPHE-GL-200G", "name": "Cà phê xay LA’CAPHE Gia Lai · 200 g", "price": 99000},
-    {"sku": "CAPHE-GL-500G", "name": "Cà phê xay LA’CAPHE Gia Lai · 500 g", "price": 199000},
-    {"sku": "CAPHE-GL-1KG", "name": "Cà phê xay LA’CAPHE Gia Lai · 1 kg", "price": 349000},
+    {"sku": "CAPHE-GL-200G", "name": "Cà phê xay Gia Lai · 200 g", "price": 99000},
+    {"sku": "CAPHE-GL-500G", "name": "Cà phê xay Gia Lai · 500 g", "price": 199000},
+    {"sku": "CAPHE-GL-1KG", "name": "Cà phê xay Gia Lai · 1 kg", "price": 349000},
 ]
 
 
