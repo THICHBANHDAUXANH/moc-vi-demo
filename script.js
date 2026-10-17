@@ -2,10 +2,10 @@ const products = [
   { id: 'tra-trung-du-dac-biet', name: 'Trà Trung Du đặc biệt', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-dac-biet-photo-demo.png', photo: true, prices: { '100 g': 79000, '200 g': 149000, '1 kg': 699000 }, skus: { '100 g': 'TRA-TD-DB-100G', '200 g': 'TRA-TD-DB-200G', '1 kg': 'TRA-TD-DB-1KG' } },
   { id: 'tra-trung-du-truyen-thong', name: 'Trà Trung Du truyền thống', category: 'che', type: 'Trà', packaging: 'Hộp', image: './products/tra-trung-du-truyen-thong-photo-demo.png', photo: true, prices: { '100 g': 69000, '200 g': 129000, '1 kg': 599000 }, skus: { '100 g': 'TRA-TD-TT-100G', '200 g': 'TRA-TD-TT-200G', '1 kg': 'TRA-TD-TT-1KG' } },
   { id: 'che-thai-nguyen', name: 'Chè Thái Nguyên', category: 'che', type: 'Chè', packaging: 'Gói hút chân không', image: './products/che-thai-nguyen-photo-demo.png', photo: true, prices: { '100 g': 59000, '200 g': 109000, '1 kg': 349000 }, skus: { '100 g': 'CHE-TN-100G', '200 g': 'CHE-TN-200G', '1 kg': 'CHE-TN-1KG' } },
-  { id: 'cacao-gia-lai', name: 'Cacao Gia Lai', category: 'cacao', type: 'Cacao', packaging: '', image: './products/cacao-gia-lai-demo.png', photo: true, prices: { '200 g': 129000, '500 g': 259000, '1 kg': 449000 }, skus: { '200 g': 'CACAO-GL-200G', '500 g': 'CACAO-GL-500G', '1 kg': 'CACAO-GL-1KG' } },
-  { id: 'cacao-daklak-thuong', name: 'Cacao Đắk Lắk · Thường', category: 'cacao', type: 'Cacao', packaging: 'Thường', image: './products/cacao-daklak-thuong-demo.png?v=2', photo: true, prices: { '200 g': 69000, '500 g': 139000, '1 kg': 239000 }, skus: { '200 g': 'CACAO-DL-T-200G', '500 g': 'CACAO-DL-T-500G', '1 kg': 'CACAO-DL-T-1KG' } },
-  { id: 'cacao-daklak-cao-cap', name: 'Cacao Đắk Lắk · Cao cấp', category: 'cacao', type: 'Cacao', packaging: 'Cao cấp', image: './products/cacao-daklak-cao-cap-demo.png', photo: true, prices: { '200 g': 129000, '500 g': 259000, '1 kg': 449000 }, skus: { '200 g': 'CACAO-DL-CC-200G', '500 g': 'CACAO-DL-CC-500G', '1 kg': 'CACAO-DL-CC-1KG' } },
-  { id: 'ca-phe', name: 'Cà phê xay Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png?v=2', photo: true, prices: { '200 g': 99000, '500 g': 199000, '1 kg': 349000 }, skus: { '200 g': 'CAPHE-GL-200G', '500 g': 'CAPHE-GL-500G', '1 kg': 'CAPHE-GL-1KG' } },
+  { id: 'cacao-gia-lai', name: 'Cacao Gia Lai', category: 'cacao', type: 'Cacao', packaging: '', image: './products/cacao-gia-lai-demo.png', photo: true, prices: { '150 g': 129000, '450 g': 259000, '950 g': 449000 }, skus: { '150 g': 'CACAO-GL-150G', '450 g': 'CACAO-GL-450G', '950 g': 'CACAO-GL-950G' } },
+  { id: 'cacao-daklak-thuong', name: 'Cacao Đắk Lắk · Thường', category: 'cacao', type: 'Cacao', packaging: 'Thường', image: './products/cacao-daklak-thuong-demo.png?v=2', photo: true, prices: { '150 g': 69000, '450 g': 139000, '950 g': 239000 }, skus: { '150 g': 'CACAO-DL-T-150G', '450 g': 'CACAO-DL-T-450G', '950 g': 'CACAO-DL-T-950G' } },
+  { id: 'cacao-daklak-cao-cap', name: 'Cacao Đắk Lắk · Cao cấp', category: 'cacao', type: 'Cacao', packaging: 'Cao cấp', image: './products/cacao-daklak-cao-cap-demo.png', photo: true, prices: { '150 g': 129000, '450 g': 259000, '950 g': 449000 }, skus: { '150 g': 'CACAO-DL-CC-150G', '450 g': 'CACAO-DL-CC-450G', '950 g': 'CACAO-DL-CC-950G' } },
+  { id: 'ca-phe', name: 'Cà phê xay Gia Lai', category: 'caphe', type: 'Cà phê', packaging: 'Đã xay', image: './products/caphe-photo-demo.png?v=2', photo: true, prices: { '150 g': 99000, '450 g': 199000, '950 g': 349000 }, skus: { '150 g': 'CAPHE-GL-150G', '450 g': 'CAPHE-GL-450G', '950 g': 'CAPHE-GL-950G' } },
 ];
 const productById = Object.fromEntries(products.map(product => [product.id, product]));
 const pausedTeaIds = new Set(['tra-trung-du-truyen-thong', 'tra-trung-du-dac-biet']);
@@ -37,7 +37,6 @@ function header() {
       <a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên" decoding="async"></a>
       <nav id="main-nav" class="nav" aria-label="Danh mục chính">${Object.entries(categories).map(([key, item]) => `<a href="${item.url}" ${page === key || currentProduct?.category === key ? 'aria-current="page"' : ''}>${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></nav>
       <div class="header-actions">
-        <button class="account-trigger icon-button" id="account-toggle" aria-label="Đăng nhập hoặc đăng ký" aria-haspopup="dialog">${icon.user}<span id="account-label">Đăng nhập</span></button>
         <button class="cart-trigger icon-button" id="cart-toggle" aria-label="Xem giỏ hàng" aria-haspopup="dialog">${icon.bag}<span class="cart-count" id="cart-count">0</span></button>
       </div>
     </header>`;
@@ -94,7 +93,7 @@ function category(category) {
 function detail(product) {
   if (!product) return `<section class="missing-product"><h1>Không tìm thấy sản phẩm</h1><a href="./che.html" class="text-link">Xem danh mục Chè →</a></section>`;
   document.title = `${product.name} — Mộc Miên`;
-  const sizes = product.category === 'che' ? [['100 g', '1 lạng'], ['200 g', '2 lạng'], ['1 kg', '1 cân']] : [['200 g', '2 lạng'], ['500 g', '5 lạng'], ['1 kg', '1 cân']];
+  const sizes = product.category === 'che' ? [['100 g', '1 lạng'], ['200 g', '2 lạng'], ['1 kg', '1 cân']] : [['150 g', '1.5 lạng'], ['450 g', '4.5 lạng'], ['950 g', '9.5 lạng']];
   const startingPrice = Math.min(...Object.values(product.prices));
   return `<nav class="breadcrumbs" aria-label="Đường dẫn"><a href="./index.html">Trang chủ</a><span>/</span><a href="${categoryUrl(product.category)}">${categoryName(product.category)}</a><span>/</span><span aria-current="page">${product.name}</span></nav>
     <section class="detail-layout"><div class="detail-visual"><img src="${product.image}" alt="Hình tham khảo ${product.name}" loading="eager" decoding="async" fetchpriority="high"></div><div class="detail-info"><span class="eyebrow">MỘC MIÊN / ${categoryName(product.category).toUpperCase()}</span><h1>${product.name}</h1><p class="detail-subtitle">${product.type} Việt${product.packaging ? ` · ${product.packaging}` : ''}</p><p class="detail-price" id="detail-price">Từ ${formatPrice(startingPrice)}</p><div class="detail-divider"></div><div class="variant-block"><div class="variant-heading"><strong>Chọn khối lượng</strong><span id="selected-size">Chưa chọn</span></div><div class="variant-options" role="group" aria-label="Khối lượng đóng gói">${sizes.map(([weight, label]) => `<button type="button" data-size="${weight}" aria-pressed="false">${weight}<small>${label} · ${formatPrice(product.prices[weight])}</small></button>`).join('')}</div></div><button class="detail-add" id="add-to-cart" disabled>Chọn khối lượng để thêm vào giỏ hàng</button><p class="detail-note">${product.id.startsWith('cacao-daklak-') ? 'Ship cacao Đắk Lắk 23.000đ; miễn phí khi mua từ 3 kg cacao Đắk Lắk trong cùng đơn.' : 'Giá chưa gồm phí vận chuyển. Shop sẽ báo phí ship để bạn xác nhận trước khi gửi hàng.'}</p><div class="detail-facts"><details open><summary>Thông tin sản phẩm</summary><p>${product.name} · ${sizes.map(([weight]) => weight).join(', ')}. Hình ảnh bao bì chỉ mang tính tham khảo.</p></details><details><summary>Giao hàng &amp; thanh toán</summary><p>Đặt hàng qua Zalo ${shopPhone}. Chọn thanh toán khi nhận hàng (COD) hoặc chuyển khoản sau khi shop xác nhận đơn và phí giao hàng.</p></details></div></div></section><section class="detail-more"><div><span class="eyebrow">KHÁM PHÁ THÊM</span><h2>${categoryName(product.category)} Mộc Miên</h2></div><a href="${categoryUrl(product.category)}" class="text-link">Xem toàn bộ danh mục <span aria-hidden="true">→</span></a></section>`;
@@ -102,7 +101,7 @@ function detail(product) {
 
 const content = page === 'home' ? home() : categories[page] ? category(page) : detail(currentProduct);
 document.querySelector('#app').innerHTML = `${header()}<main>${content}</main>${footer()}${cartMarkup()}`;
-window.MocMienAuth?.init();
+//window.MocMienAuth?.init();
 if (page === 'product' && currentProduct && pausedTeaIds.has(currentProduct.id)) {
   document.querySelector('.detail-note').innerHTML = `Loại trà này tạm chưa nhận đơn trên website. <a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener">Nhắn Mộc Miên qua Zalo</a> để hỏi mua.`;
 }
@@ -204,7 +203,7 @@ teaOrderNotice.innerHTML = `Giỏ có trà Trung Du. Tạm thời chưa thể đ
 document.querySelector('#cart-summary').after(teaOrderNotice);
 const saveCart = () => { try { localStorage.setItem(storageKey, JSON.stringify(cart)); } catch { /* Keep the current cart in memory. */ } };
 const cartTotal = () => cart.reduce((sum, item) => sum + productById[item.id].prices[item.size] * item.quantity, 0);
-const sizeGrams = { '200 g': 200, '500 g': 500, '1 kg': 1000 };
+const sizeGrams = { '150 g': 150, '450 g': 450, '950 g': 950 };
 const daklakShipping = () => {
   const grams = cart.reduce((sum, item) => sum + (item.id.startsWith('cacao-daklak-') ? (sizeGrams[item.size] || 0) * item.quantity : 0), 0);
   return { grams, fee: grams >= 3000 || grams === 0 ? 0 : 23000 };
