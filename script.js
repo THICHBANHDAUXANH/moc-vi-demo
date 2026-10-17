@@ -37,7 +37,6 @@ function header() {
       <a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên" decoding="async"></a>
       <nav id="main-nav" class="nav" aria-label="Danh mục chính">${Object.entries(categories).map(([key, item]) => `<a href="${item.url}" ${page === key || currentProduct?.category === key ? 'aria-current="page"' : ''}>${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></nav>
       <div class="header-actions">
-        <button class="account-trigger icon-button" id="account-toggle" aria-label="Đăng nhập hoặc đăng ký" aria-haspopup="dialog">${icon.user}<span id="account-label">Đăng nhập</span></button>
         <button class="cart-trigger icon-button" id="cart-toggle" aria-label="Xem giỏ hàng" aria-haspopup="dialog">${icon.bag}<span class="cart-count" id="cart-count">0</span></button>
       </div>
     </header>`;
@@ -102,7 +101,7 @@ function detail(product) {
 
 const content = page === 'home' ? home() : categories[page] ? category(page) : detail(currentProduct);
 document.querySelector('#app').innerHTML = `${header()}<main>${content}</main>${footer()}${cartMarkup()}`;
-window.MocMienAuth?.init();
+//window.MocMienAuth?.init();
 if (page === 'product' && currentProduct && pausedTeaIds.has(currentProduct.id)) {
   document.querySelector('.detail-note').innerHTML = `Loại trà này tạm chưa nhận đơn trên website. <a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener">Nhắn Mộc Miên qua Zalo</a> để hỏi mua.`;
 }
