@@ -27,16 +27,27 @@ def create_access_token(data: dict):
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 security = HTTPBearer()
+optional_security = HTTPBearer(auto_error=False)
 
-def decode_token(credentials: HTTPAuthorizationCredentials = Security(security)):
+
+def _decode_user_id(credentials: HTTPAuthorizationCredentials) -> int:
     try:
         payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
         user_id_str = payload.get("sub")
         if user_id_str is None:
             raise HTTPException(status_code=401, detail="Token không hợp lệ")
-        
-        # Ép kiểu chuỗi sang số nguyên (Integer)
-        return int(user_id_str) 
-        
-    except (JWTError, ValueError, TypeError): # Đã thêm ValueError và TypeError
+        return int(user_id_str)
+    except (JWTError, ValueError, TypeError):
         raise HTTPException(status_code=401, detail="Token đã hết hạn hoặc sai")
+
+
+def decode_token(credentials: HTTPAuthorizationCredentials = Security(security)):
+    return _decode_user_id(credentials)
+
+
+def decode_optional_token(
+    credentials: HTTPAuthorizationCredentials | None = Security(optional_security),
+):
+    if credentials is None:
+        return None
+    return _decode_user_id(credentials)

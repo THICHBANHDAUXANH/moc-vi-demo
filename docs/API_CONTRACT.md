@@ -16,7 +16,7 @@ Chưa buộc khách phải tạo tài khoản để đặt hàng. Mật khẩu c
 
 | Route dự kiến | Input | Output tối thiểu |
 | --- | --- | --- |
-| `POST /api/orders` | sản phẩm, quy cách, số lượng, tên và số liên hệ, địa chỉ, `payment_method` (`cod` hoặc `bank_transfer`) | mã đơn, tổng tiền, trạng thái, thông tin thanh toán phù hợp |
+| `POST /api/orders` | `items[]` (`sku`, `quantity`), `customer` (`name`, `phone`, `address`), `payment_method` (`cod` hoặc `bank_transfer`), `note` | `id`, `total_amount` do server tính, `status`, `payment_method`, `items[]`, `payment` |
 | `GET /api/orders/:id` | mã đơn, quyền truy cập hợp lệ | trạng thái đơn và thanh toán |
 
 Server tự tra giá hiện hành và tính lại tổng tiền, không tin tổng tiền do trình duyệt gửi. Trạng thái thanh toán chỉ được cập nhật sau khi có xác nhận hợp lệ; chọn chuyển khoản không đồng nghĩa đã thanh toán. Cần thống nhất với Sơn các bảng `users`, `orders`, `order_items`, `payments` và migration tương ứng trước khi code.
@@ -26,3 +26,23 @@ Chưa chốt cổng thanh toán trực tuyến. Luồng hiện tại của shop 
 ## Môi trường triển khai — Phúc phụ trách
 
 Frontend cần một `API_BASE_URL` theo từng môi trường. Backend cần database URL và khóa bí mật qua biến môi trường của host; không ghi giá trị thật vào Git. Phúc ghi rõ domain thử, CORS, lệnh chạy/build, cách migrate và cách quay lại bản trước trong `infra/`.
+
+
+### Quy ước frontend checkout
+
+Frontend không gửi hoặc tin cậy đơn giá/tổng tiền. Mỗi quy cách bán hàng có một `products.sku` riêng; `checkout.js` chỉ gửi `sku` và `quantity`, backend tra SKU trong database rồi tự tính giá.
+
+Nếu `payment_method = bank_transfer`, backend có thể trả thêm dữ liệu như `payment.qr_url`, `payment.checkout_url`, `payment.reference` hoặc thông tin tương đương. Không đặt số tài khoản, API key, checksum secret hoặc chữ ký webhook trong JavaScript phía trình duyệt.
+
+Frontend đọc base URL từ `window.MOC_MIEN_API_BASE_URL`. Khi biến này chưa được cấu hình (ví dụ GitHub Pages hiện tại), checkout chạy chế độ demo/Zalo và không giả vờ rằng giao dịch đã thanh toán.
+
+Trạng thái gợi ý: `order_status = pending|confirmed|cancelled|fulfilled`; `payment_status = unpaid|pending|paid|failed|refunded`. Chỉ backend/webhook hợp lệ được chuyển `payment_status` sang `paid`.
+
+
+### Quy ước SKU với schema hiện tại
+
+Không cần thêm cột `variant` vào bảng `products`. Mỗi quy cách là một row/SKU riêng, ví dụ `TRA-TD-DB-100G`, `TRA-TD-DB-200G`, `TRA-TD-DB-1KG`. `order_items.product_id` vẫn là khóa ngoại integer tới row SKU tương ứng.
+
+Danh mục bootstrap cho môi trường dev nằm ở `backend/src/orders/catalog.py`. Nếu SKU đã tồn tại trong database, giá trong database là nguồn sự thật và không bị frontend ghi đè.
+
+`note` được lưu riêng trong bảng `order_notes` để không sửa file model do Sơn đang phụ trách.
