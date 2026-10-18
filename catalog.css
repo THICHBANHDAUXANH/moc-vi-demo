@@ -46,9 +46,53 @@
 .category-copy h3{font-family:'Playfair Display',serif;font-size:48px;font-weight:400;margin:8px 0}
 .category-copy p{margin:0;color:#68766a;font-size:14px}
 .category-copy b{position:absolute;right:28px;bottom:29px;font-size:23px;font-weight:400}
-.catalog-hero{min-height:290px;padding:70px max(6vw,24px) 48px;display:flex;align-items:end;justify-content:space-between;background:#eceee3}
-.cacao-heading{background:#ede4d8}
-.coffee-heading{background:#e9e0d3}
+.catalog-hero {
+  min-height: 290px;
+  padding: 70px max(6vw, 24px) 48px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.catalog-hero:not(.cacao-heading):not(.coffee-heading) {
+  background-image:
+    linear-gradient(
+      rgba(249, 247, 240, 0.6),
+      rgba(249, 247, 240, 0.5)
+    ),
+    url("./products/anhdoiche.png");
+}
+
+.catalog-hero.cacao-heading {
+  background-image:
+    linear-gradient(
+      rgba(249, 247, 240, 0.5),
+      rgba(249, 247, 240, 0.5)
+    ),
+    url("./products/anhcacaocay.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.catalog-hero.coffee-heading {
+  background-image:
+    linear-gradient(
+      rgba(249, 247, 240, 0.6),
+      rgba(249, 247, 240, 0.6)
+    ),
+    url("./products/anhcaphecay.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
 .coffee-tone{background:#e9e0d3}
 .catalog-hero h1{font-family:'Playfair Display',serif;font-size:clamp(72px,8vw,120px);font-weight:400;letter-spacing:-.055em;line-height:1;margin:20px 0 12px}
 .catalog-hero p{max-width:620px;color:#6e796d;font-size:15px;line-height:1.7;margin:0}
@@ -60,7 +104,7 @@
 .catalog-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:30px}
 .catalog-grid:has(> :only-child){grid-template-columns:minmax(0,440px)}
 .catalog-image{height:clamp(300px,35vw,480px);display:grid;place-items:center;overflow:hidden}
-.catalog-image img{width:80%;height:90%;object-fit:contain;transition:transform .3s ease}
+.catalog-image img{width:100%;height:100%;object-fit: cover;object-position: center;display: block;transition:transform .3s ease}
 .catalog-image img[src$="-photo-demo.png"]{width:100%;height:100%;object-fit:cover}
 .catalog-card:hover img{transform:scale(1.04)}
 .catalog-meta{display:flex;justify-content:space-between;gap:8px;margin-top:17px;font-size:10px}
