@@ -25,9 +25,15 @@ footer .brand{background:#f9f7f0;padding:7px 14px;border-radius:3px}.story-word{
 .story-panel.is-active{display:grid}
 .story-media{position:relative;min-height:560px;overflow:hidden;background:#dfe5d6}
 .story-media:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,#17382a88)}
-.story-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.story-media img{ position: relative;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;}
 .story-number{position:absolute;z-index:2;left:24px;bottom:24px;padding:9px 12px;background:#fffdf8e8;color:#274838;font-size:10px;font-weight:700;letter-spacing:.12em}
-.story-panel .story-copy{padding:64px clamp(38px,5vw,76px) 86px;display:flex;flex-direction:column;justify-content:center}
+.story-panel .story-copy{padding:64px clamp(38px,5vw,76px) 86px;display:flex;flex-direction:column;justify-content:flex-start;max-height: 700px;overflow-y: auto;min-height: 0;}
 .story-panel .story-copy h2{font-family:'Playfair Display',serif;font-size:clamp(39px,3.7vw,57px);font-weight:400;letter-spacing:-.045em;line-height:1.12;margin:16px 0 20px}
 .story-panel .story-copy h2 em{font-weight:400;color:#b68150}
 .story-panel .story-copy>p{max-width:590px;margin:0 0 24px;color:#667366;font-size:14px;line-height:1.85}
