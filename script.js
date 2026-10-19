@@ -32,7 +32,7 @@ const icon = {
 };
 
 function header() {
-  return `<div class="announcement">Mộc Miên · Chè, cacao &amp; cà phê <span>✦</span> Đặt hàng qua Zalo ${shopPhone}</div>
+  return `<div class="announcement">Mộc Miên · Chè, cacao &amp; cà phê Việt</div>
     <header class="header">
       <button class="mobile-menu icon-button" id="menu-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav">${icon.menu}</button>
       <a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên" decoding="async"></a>
@@ -44,7 +44,7 @@ function header() {
 }
 
 function footer() {
-  return `<footer id="footer"><div><a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên" decoding="async"></a><p>Chè, cacao và cà phê cho những phút giây an yên.</p></div><div><strong>Khám phá</strong>${Object.values(categories).map(item => `<a href="${item.url}">${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></div><div><strong>Liên hệ đặt hàng</strong><a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener">Nhắn Mộc Miên trên Zalo</a><a href="tel:${shopPhone}">${shopPhone}</a><span>Thanh toán COD hoặc chuyển khoản khi xác nhận đơn.</span></div><small>© 2026 Mộc Miên</small></footer>`;
+  return `<footer id="footer"><div><a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên" decoding="async"></a><p>Chè, cacao và cà phê cho những phút giây an yên.</p></div><div><strong>Khám phá</strong>${Object.values(categories).map(item => `<a href="${item.url}">${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></div><small>© 2026 Mộc Miên</small></footer>`;
 }
 
 function cartMarkup() {
@@ -97,7 +97,7 @@ function detail(product) {
   const sizes = product.category === 'che' ? [['100 g', '1 lạng'], ['200 g', '2 lạng'], ['1 kg', '1 cân']] : [['150 g', '1.5 lạng'], ['450 g', '4.5 lạng'], ['950 g', '9.5 lạng']];
   const startingPrice = Math.min(...Object.values(product.prices));
   return `<nav class="breadcrumbs" aria-label="Đường dẫn"><a href="./index.html">Trang chủ</a><span>/</span><a href="${categoryUrl(product.category)}">${categoryName(product.category)}</a><span>/</span><span aria-current="page">${product.name}</span></nav>
-    <section class="detail-layout"><div class="detail-visual"><img src="${product.image}" alt="Hình tham khảo ${product.name}" loading="eager" decoding="async" fetchpriority="high"></div><div class="detail-info"><span class="eyebrow">MỘC MIÊN / ${categoryName(product.category).toUpperCase()}</span><h1>${product.name}</h1><p class="detail-subtitle">${product.type} Việt${product.packaging ? ` · ${product.packaging}` : ''}</p><p class="detail-price" id="detail-price">Từ ${formatPrice(startingPrice)}</p><div class="detail-divider"></div><div class="variant-block"><div class="variant-heading"><strong>Chọn khối lượng</strong><span id="selected-size">Chưa chọn</span></div><div class="variant-options" role="group" aria-label="Khối lượng đóng gói">${sizes.map(([weight, label]) => `<button type="button" data-size="${weight}" aria-pressed="false">${weight}<small>${label} · ${formatPrice(product.prices[weight])}</small></button>`).join('')}</div></div><button class="detail-add" id="add-to-cart" disabled>Chọn khối lượng để thêm vào giỏ hàng</button><p class="detail-note">${product.id.startsWith('cacao-daklak-') ? 'Ship cacao Đắk Lắk 23.000đ; miễn phí khi mua từ 3 kg cacao Đắk Lắk trong cùng đơn.' : 'Giá chưa gồm phí vận chuyển. Shop sẽ báo phí ship để bạn xác nhận trước khi gửi hàng.'}</p><div class="detail-facts"><details open><summary>Thông tin sản phẩm</summary><p>${product.name} · ${sizes.map(([weight]) => weight).join(', ')}. Hình ảnh bao bì chỉ mang tính tham khảo.</p></details><details><summary>Giao hàng &amp; thanh toán</summary><p>Đặt hàng qua Zalo ${shopPhone}. Chọn thanh toán khi nhận hàng (COD) hoặc chuyển khoản sau khi shop xác nhận đơn và phí giao hàng.</p></details></div></div></section><section class="detail-more"><div><span class="eyebrow">KHÁM PHÁ THÊM</span><h2>${categoryName(product.category)} Mộc Miên</h2></div><a href="${categoryUrl(product.category)}" class="text-link">Xem toàn bộ danh mục <span aria-hidden="true">→</span></a></section>`;
+    <section class="detail-layout"><div class="detail-visual"><img src="${product.image}" alt="Hình tham khảo ${product.name}" loading="eager" decoding="async" fetchpriority="high"></div><div class="detail-info"><span class="eyebrow">MỘC MIÊN / ${categoryName(product.category).toUpperCase()}</span><h1>${product.name}</h1><p class="detail-subtitle">${product.type} Việt${product.packaging ? ` · ${product.packaging}` : ''}</p><p class="detail-price" id="detail-price">Từ ${formatPrice(startingPrice)}</p><div class="detail-divider"></div><div class="variant-block"><div class="variant-heading"><div><span class="variant-kicker">CHỌN GÓI PHÙ HỢP</span><strong>Chọn khối lượng bạn muốn</strong></div><span id="selected-size">Chưa chọn</span></div><p class="variant-help">Chạm vào một lựa chọn để xem đúng giá và thêm sản phẩm vào giỏ.</p><div class="variant-options" role="group" aria-label="Khối lượng đóng gói">${sizes.map(([weight, label]) => `<button type="button" data-size="${weight}" aria-pressed="false">${weight}<small>${label} · ${formatPrice(product.prices[weight])}</small></button>`).join('')}</div></div><button class="detail-add" id="add-to-cart" disabled>Chọn khối lượng để tiếp tục</button><p class="detail-note">${product.id.startsWith('cacao-daklak-') ? 'Ship cacao Đắk Lắk 23.000đ; miễn phí khi mua từ 3 kg cacao Đắk Lắk trong cùng đơn.' : 'Giá chưa gồm phí vận chuyển. Shop sẽ báo phí ship để bạn xác nhận trước khi gửi hàng.'}</p><div class="detail-facts"><details open><summary>Thông tin sản phẩm</summary><p>${product.name} · ${sizes.map(([weight]) => weight).join(', ')}. Hình ảnh bao bì chỉ mang tính tham khảo.</p></details><details><summary>Giao hàng &amp; thanh toán</summary><p>Đặt hàng qua Zalo ${shopPhone}. Chọn thanh toán khi nhận hàng (COD) hoặc chuyển khoản sau khi shop xác nhận đơn và phí giao hàng.</p></details></div></div></section><section class="detail-more"><div><span class="eyebrow">KHÁM PHÁ THÊM</span><h2>${categoryName(product.category)} Mộc Miên</h2></div><a href="${categoryUrl(product.category)}" class="text-link">Xem toàn bộ danh mục <span aria-hidden="true">→</span></a></section>`;
 }
 
 const content = page === 'home' ? home() : categories[page] ? category(page) : detail(currentProduct);
@@ -358,7 +358,7 @@ if (page === 'product' && currentProduct) {
     document.querySelector('#selected-size').textContent = selectedSize;
     document.querySelector('#detail-price').textContent = formatPrice(currentProduct.prices[selectedSize]);
     addButton.disabled = false;
-    addButton.textContent = 'Thêm vào giỏ hàng';
+    addButton.textContent = `Thêm vào giỏ · ${formatPrice(currentProduct.prices[selectedSize])}`;
   }));
   addButton.addEventListener('click', () => {
     if (!selectedSize) return;
