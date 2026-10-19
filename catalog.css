@@ -118,21 +118,28 @@
 .detail-visual img[src$="-photo-demo.png"]{width:100%;height:100%;max-height:none;object-fit:cover}
 .detail-visual:has(.photo-disclosure){position:relative}
 .photo-disclosure{position:absolute;left:20px;right:20px;bottom:20px;padding:10px 14px;background:#fffdf8e8;color:#34503d;font-size:11px;line-height:1.4;text-align:center}
-.detail-info{padding:clamp(45px,6vw,95px) max(6vw,36px) 70px;max-width:660px;width:100%;margin:auto}
+.detail-info{padding:clamp(42px,5vw,76px) max(5vw,34px) 64px;max-width:700px;width:100%;margin:auto}
 .detail-info h1{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(44px,4.3vw,66px);letter-spacing:-.045em;line-height:1.1;margin:18px 0 16px}
 .detail-subtitle{font-size:14px;color:#6f7b6d;margin:0 0 35px}
 .detail-price{font-size:16px;font-weight:600;margin:0 0 30px}
 .detail-divider{height:1px;background:#dfe4da;margin-bottom:26px}
-.variant-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:14px;margin-bottom:15px}
-.variant-heading span{color:#7c877b;font-size:12px}
-.variant-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px}
-.variant-options button{background:#fffdf8;border:1px solid #cbd4c8;color:#294a38;padding:15px 6px;min-height:68px;font-weight:600;font-size:15px}
-.variant-options button small{display:block;margin-top:4px;color:#7d8b7e;font-size:11px;font-weight:400}
-.variant-options button:hover,.variant-options button[aria-pressed="true"]{border-color:#24513c;background:#e8eee7}
+.variant-block{background:#f5f3ea;border:1px solid #e2e3d9;padding:22px 22px 20px;margin-bottom:14px}
+.variant-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:8px}
+.variant-heading>div{display:grid;gap:5px}
+.variant-heading strong{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;color:#234b3a}
+.variant-heading>span{flex:none;color:#6f7c70;font-size:12px;font-weight:600}
+.variant-kicker{font-size:9px;font-weight:700;letter-spacing:.16em;color:#a47443}
+.variant-help{margin:0 0 16px;color:#7a8579;font-size:11px;line-height:1.55}
+.variant-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:0}
+.variant-options button{position:relative;background:#fffdf8;border:1px solid #cbd4c8;color:#294a38;padding:15px 8px;min-height:74px;font-weight:700;font-size:15px;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.variant-options button small{display:block;margin-top:5px;color:#7d8b7e;font-size:11px;font-weight:400}
+.variant-options button:hover{border-color:#6f8978;transform:translateY(-1px)}
+.variant-options button[aria-pressed="true"]{border-color:#214d39;background:#e7eee7;box-shadow:inset 0 0 0 1px #214d39}
+.variant-options button[aria-pressed="true"]::after{content:'✓';position:absolute;top:7px;right:9px;font-size:11px;color:#214d39}
 .variant-options button:focus-visible,.detail-add:focus-visible,.catalog-card a:focus-visible,.category-tile:focus-visible{outline:3px solid #b68150;outline-offset:3px}
-.detail-add{background:#214d39;border:0;color:#fff;width:100%;min-height:54px;font-size:14px;font-weight:600}
-.detail-add:hover:not(:disabled){background:#17382a}
-.detail-add:disabled{background:#91a396;cursor:not-allowed}
+.detail-add{background:#214d39;border:0;color:#fff;width:100%;min-height:58px;font-size:14px;font-weight:700;letter-spacing:.01em;transition:background .18s ease,transform .18s ease}
+.detail-add:hover:not(:disabled){background:#17382a;transform:translateY(-1px)}
+.detail-add:disabled{background:#9aa99e;color:#f5f7f3;cursor:not-allowed}
 .detail-note{color:#859185;font-size:12px;line-height:1.6;margin:15px 0 30px}
 .detail-facts{border-top:1px solid #dfe4da}
 .detail-facts details{border-bottom:1px solid #dfe4da;padding:17px 0}
@@ -143,7 +150,7 @@
 .missing-product{padding:100px max(6vw,24px);min-height:400px}
 .missing-product h1{font-family:'Playfair Display',serif;font-size:46px;font-weight:400}
 @media(max-width:900px){.nav{gap:22px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.category-art{height:320px}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.detail-layout{grid-template-columns:1fr 1fr}.detail-visual{min-height:580px}.detail-info{padding:45px 5vw}}
-@media(max-width:650px){.category-grid{grid-template-columns:1fr}.category-art,.cacao-region-pair{height:320px}.category-copy h3{font-size:39px}.catalog-hero{min-height:240px;padding:55px 5vw 35px}.catalog-hero h1{font-size:72px}.catalog-index{display:none}.catalog-section{padding:24px 5vw 70px}.catalog-tools,.catalog-tools nav{flex-wrap:wrap;gap:14px}.catalog-grid{grid-template-columns:1fr;gap:24px}.catalog-image{height:320px}.catalog-card h2{font-size:22px}.catalog-meta{font-size:9px}.catalog-meta span:last-child{display:none}.breadcrumbs{padding:18px 5vw}.detail-layout{grid-template-columns:1fr}.detail-visual{min-height:400px;height:420px}.detail-visual img{max-height:370px}.detail-info{padding:42px 6vw 65px}.detail-info h1{font-size:45px}.detail-more{display:block;padding:55px 6vw}.detail-more h2{font-size:35px;margin-bottom:25px}}
+@media(max-width:650px){.category-grid{grid-template-columns:1fr}.category-art,.cacao-region-pair{height:320px}.category-copy h3{font-size:39px}.catalog-hero{min-height:240px;padding:55px 5vw 35px}.catalog-hero h1{font-size:72px}.catalog-index{display:none}.catalog-section{padding:24px 5vw 70px}.catalog-tools,.catalog-tools nav{flex-wrap:wrap;gap:14px}.catalog-grid{grid-template-columns:1fr;gap:24px}.catalog-image{height:320px}.catalog-card h2{font-size:22px}.catalog-meta{font-size:9px}.catalog-meta span:last-child{display:none}.breadcrumbs{padding:18px 5vw}.detail-layout{grid-template-columns:1fr}.detail-visual{min-height:400px;height:420px}.detail-visual img{max-height:370px}.detail-info{padding:38px 5vw 58px}.detail-info h1{font-size:45px}.variant-block{padding:18px 14px}.variant-heading{align-items:flex-start}.variant-heading strong{font-size:20px}.variant-options{grid-template-columns:1fr}.variant-options button{min-height:62px;text-align:left;padding:13px 16px}.variant-options button small{display:inline;margin-left:8px}.detail-add{min-height:56px}.detail-more{display:block;padding:55px 6vw}.detail-more h2{font-size:35px;margin-bottom:25px}}
 @media(max-width:390px){.catalog-grid{grid-template-columns:1fr}.catalog-image{height:320px}}
 .drawer{width:min(500px,100%);overflow-y:auto}
 .cart-items{flex:none;overflow:visible}
