@@ -27,7 +27,7 @@ const icon = {
 };
 
 function header() {
-  return `<div class="announcement">Mộc Miên · Chè, cacao &amp; cà phê <span>✦</span> Đặt hàng qua Zalo ${shopPhone}</div>
+  return `<div class="announcement">Mộc Miên · Chè, cacao &amp; cà phê Việt</div>
     <header class="header">
       <button class="mobile-menu icon-button" id="menu-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav">${icon.menu}</button>
       <a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên"></a>
@@ -37,7 +37,7 @@ function header() {
 }
 
 function footer() {
-  return `<footer id="footer"><div><a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên"></a><p>Chè, cacao và cà phê cho những phút giây an yên.</p></div><div><strong>Khám phá</strong>${Object.values(categories).map(item => `<a href="${item.url}">${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></div><div><strong>Liên hệ đặt hàng</strong><a href="https://zalo.me/${shopPhone}" target="_blank" rel="noopener">Nhắn Mộc Miên trên Zalo</a><a href="tel:${shopPhone}">${shopPhone}</a><span>Thanh toán COD hoặc chuyển khoản khi xác nhận đơn.</span></div><small>© 2026 Mộc Miên</small></footer>`;
+  return `<footer id="footer"><div><a href="./index.html" class="brand"><img class="brand-logo" src="./moc-mien-logo.png" alt="Mộc Miên"></a><p>Chè, cacao và cà phê cho những phút giây an yên.</p></div><div><strong>Khám phá</strong>${Object.values(categories).map(item => `<a href="${item.url}">${item.name}</a>`).join('')}<a href="./index.html#story">Câu chuyện</a></div><small>© 2026 Mộc Miên</small></footer>`;
 }
 
 function cartMarkup() {
